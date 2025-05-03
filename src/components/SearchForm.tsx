@@ -6,29 +6,31 @@ import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
 
 export default function SearchForm() {
-    const [{}, dispatch] = useStateProvider()
+    const [{ page, itemPerPage }, dispatch] = useStateProvider()
     const [search, setSearch] = useState<string>('')
-    const [debounceSearch, setDebounceSearch] = useState<string>('')
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
 
     useEffect(() => {
+        dispatch({ type: reducerCases.SET_PAGE, token: 1 })
         const timeoutId = setTimeout(() => {
-            setDebounceSearch(search);
             axios.get('https://api.jikan.moe/v4/anime',
                 {
                     params: {
                         q: search,
-                        page: 1,
-                        limit: 3
+                        page: page,
+                        limit: itemPerPage,
+                        order_by: 'title',
+                        sort: 'asc'
                     },
                 }
             )
                 .then(function (response) {
                     if (response.status === 200) {
                         dispatch({ type: reducerCases.SET_ANIME_LIST, token: response.data })
+                        dispatch({ type: reducerCases.SET_SEARCH, token: search })
                     }
                 })
                 .catch(function (error) {
@@ -55,9 +57,22 @@ export default function SearchForm() {
 
     return (
         <Box>
-            <TextField fullWidth variant="outlined" label="Search"
-                value={search}
-                onChange={onChange}
+            <TextField fullWidth variant="filled" label="Search"
+                size="small" color="secondary"
+                sx={{
+                    maxWidth: { xs: 200, sm: 'unset' },
+                    bgcolor: 'whitesmoke', borderRadius: 1,
+                    '& .MuiFilledInput-root::before': {
+                        borderBottom: '1px solid transparent',
+                    },
+                    '& .MuiFilledInput-input': {
+                        padding: { xs: '18px 8px 0px', sm: '20px 12px 4px' }
+                    },
+                    '& .MuiFormLabel-root': {
+                        transform: { xs: 'translate(8px, 4px) scale(0.7)', sm: 'translate(12px, 4px) scale(0.75)' }
+                    }
+                }}
+                value={search} onChange={onChange}
                 slotProps={{
                     input: {
                         endAdornment: (
