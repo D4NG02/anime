@@ -1,4 +1,4 @@
-import { Box, Popover, Rating, Stack, Typography } from "@mui/material";
+import { Box, Popover, Stack, Typography } from "@mui/material";
 import { animeType } from "../Utility/type";
 import StarIcon from '@mui/icons-material/Star';
 
@@ -9,7 +9,7 @@ interface props {
     handleClose: () => void
 }
 
-export default function DetailPopover({ data, open, anchorEl, handleClose }: props) {
+export default function PopoverAnimeDetail({ data, open, anchorEl, handleClose }: props) {
     return (
         <Popover sx={{ pointerEvents: 'none', '& .MuiPopover-paper': { width: 280, padding: 2, display: 'flex', gap: 1.6, flexDirection: 'column' } }} open={open} anchorEl={anchorEl}
             onClose={handleClose} disableRestoreFocus
@@ -24,16 +24,16 @@ export default function DetailPopover({ data, open, anchorEl, handleClose }: pro
         >
             <Typography variant="h6">{data.title}</Typography>
             <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
-                {data.score && <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
-                    <StarIcon color='warning' sx={{ marginBottom: 0.5, fontSize: '0.9rem' }} />
-                    <Typography variant="caption">{data.score}</Typography>
-                </Box>}
                 <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
-                    {data.episodes && <Typography variant="caption"
+                    <StarIcon color='warning' sx={{ marginBottom: 0.5, fontSize: '0.9rem' }} />
+                    <Typography variant="caption">{data.score ? data.score:'N/A'}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+                    <Typography variant="caption"
                         sx={{ bgcolor: 'lightgray', padding: '0.06rem 0.4rem', borderRadius: 1 }}
-                    >{data.episodes + ' epi'}</Typography>}
+                    >{data.episodes ? data.episodes + ' epi' : 'N/A'}</Typography>
                     {data.rating && data.rating.includes('R+') && <Typography variant="caption"
-                        sx={(theme) => ({ bgcolor: theme.palette.warning.main, padding: '0.06rem 0.4rem', borderRadius: 1 })}
+                        sx={(theme) => ({ bgcolor: theme.palette.error.main, padding: '0.06rem 0.4rem', borderRadius: 1 })}
                     >18+</Typography>}
                 </Box>
                 <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
@@ -42,7 +42,7 @@ export default function DetailPopover({ data, open, anchorEl, handleClose }: pro
                 </Box>
             </Stack>
             <Typography variant="body1" component='p'
-                sx={{ overflowY: 'clip', maxHeight: 92, textOverflow: 'ellipsis' }}>{data.synopsis}</Typography>
+                sx={{ overflowY: 'clip', maxHeight: 72, textOverflow: 'ellipsis' }}>{data.synopsis}</Typography>
             <Stack>
                 {data.titles.length > 0 && data.titles.map(({ type, title }, idx) => {
                     if (type && type.includes('Japan')) {
@@ -62,7 +62,7 @@ export default function DetailPopover({ data, open, anchorEl, handleClose }: pro
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                     <Typography variant="caption" component='p'
                         sx={{ overflowY: 'clip', maxHeight: 92, textOverflow: 'ellipsis' }}>
-                        Genres:&nbsp;
+                        Genres:&nbsp; {data.genres.length === 0 && 'N/A'}
                     </Typography>
                     {data.genres.length > 0 && data.genres.map(({ name }, idx) => {
                         return (

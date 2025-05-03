@@ -4,6 +4,7 @@ import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
+import { ErrorGetAnimeSearch } from "../Utility/ApiErrorHandle";
 
 export default function SearchForm() {
     const [{ page, itemPerPage }, dispatch] = useStateProvider()
@@ -34,42 +35,27 @@ export default function SearchForm() {
                     }
                 })
                 .catch(function (error) {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.log(error.response.data);
-                        console.log(error.response.status);
-                        console.log(error.response.headers);
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                        // http.ClientRequest in node.js
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered an Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config);
+                    ErrorGetAnimeSearch(error)
                 });
         }, 250);
         return () => clearTimeout(timeoutId);
     }, [search]);
 
     return (
-        <Box>
+        <Box sx={{ width: 300 }}>
             <TextField fullWidth variant="filled" label="Search"
-                size="small" color="secondary"
+                size="small" color="primary"
                 sx={{
-                    maxWidth: { xs: 200, sm: 'unset' },
-                    bgcolor: 'whitesmoke', borderRadius: 1,
+                    borderRadius: 1,
                     '& .MuiFilledInput-root::before': {
                         borderBottom: '1px solid transparent',
                     },
                     '& .MuiFilledInput-input': {
+                        height: '1.3em',
                         padding: { xs: '18px 8px 0px', sm: '20px 12px 4px' }
                     },
                     '& .MuiFormLabel-root': {
-                        transform: { xs: 'translate(8px, 4px) scale(0.7)', sm: 'translate(12px, 4px) scale(0.75)' }
+                        transform: { xs: 'translate(8px, 4px) scale(0.65)', sm: 'translate(12px, 4px) scale(0.65)' }
                     }
                 }}
                 value={search} onChange={onChange}
