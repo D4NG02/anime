@@ -1,17 +1,24 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router'
 import { Box, Container } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
 
 export default function Detail() {
+    let navigate = useNavigate();
     const [{ detail }] = useStateProvider()
+
+    useEffect(() => {
+        detail === null && navigate('/');
+    }, []);
 
     return (
         <Container sx={{
             color: 'whitesmoke',
             paddingBlock: 6
         }}>
-            <Box sx={{
+            {detail && <Box sx={{
                 gap: { xs: 2, md: 3 }, display: 'grid',
                 gridTemplateRows: { xs: 'auto auto', lg: 'auto' },
                 gridTemplateColumns: { xs: 'auto', lg: 'auto 280px' }
@@ -32,7 +39,7 @@ export default function Detail() {
                 </Box>
 
                 <AnimeInfo />
-            </Box>
+            </Box>}
         </Container>
     );
 }

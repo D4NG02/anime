@@ -3,7 +3,7 @@ import { reducerCases } from "./Constant"
 export const initialState = {
     search: '',
     anime: [],
-    detail: [],
+    detail: null,
     pagination: {},
     itemPerPage: 12,
     page: 1
