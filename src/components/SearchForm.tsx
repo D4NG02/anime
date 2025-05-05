@@ -50,11 +50,18 @@ export default function SearchForm() {
                     '&.MuiTextField-root': {
                         bgcolor: theme.palette.secondary.light
                     },
+                    '& .MuiInputLabel-root': {
+                        color: theme.palette.primary.light,
+                    },
+                    '& .MuiSvgIcon-root': {
+                        fill: theme.palette.primary.light,
+                    },
                     '& .MuiFilledInput-root::before': {
                         borderBottom: '1px solid transparent',
                     },
                     '& .MuiFilledInput-input': {
                         height: '1.3em',
+                        color: theme.palette.primary.light,
                         padding: { xs: '18px 8px 0px', sm: '20px 12px 4px' }
                     },
                     '& .MuiFormLabel-root': {
