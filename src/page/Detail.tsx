@@ -10,7 +10,12 @@ export default function Detail() {
     const [{ detail }] = useStateProvider()
 
     useEffect(() => {
-        detail === null && navigate('/');
+        const delay = setTimeout(() => {
+            detail === null && navigate('/');
+        }, 250);
+        return (()=>{
+            clearTimeout(delay)
+        })
     }, []);
 
     return (
