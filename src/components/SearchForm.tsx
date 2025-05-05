@@ -7,21 +7,21 @@ import { reducerCases } from "../Utility/Reducer/Constant";
 import { ErrorGetAnimeSearch } from "../Utility/ApiErrorHandle";
 
 export default function SearchForm() {
-    const [{ page, itemPerPage }, dispatch] = useStateProvider()
-    const [search, setSearch] = useState<string>('')
+    const [{ search, itemPerPage }, dispatch] = useStateProvider()
+    const [find, setFind] = useState<string>(search)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value)
+        setFind(e.target.value)
     }
 
     useEffect(() => {
-        dispatch({ type: reducerCases.SET_PAGE, token: 1 })
         const timeoutId = setTimeout(() => {
+            dispatch({ type: reducerCases.SET_PAGE, token: 1 })
             axios.get('https://api.jikan.moe/v4/anime',
                 {
                     params: {
-                        q: search,
-                        page: page,
+                        q: find,
+                        page: 1,
                         limit: itemPerPage,
                         order_by: 'title',
                         sort: 'asc'
@@ -31,7 +31,7 @@ export default function SearchForm() {
                 .then(function (response) {
                     if (response.status === 200) {
                         dispatch({ type: reducerCases.SET_ANIME_LIST, token: response.data })
-                        dispatch({ type: reducerCases.SET_SEARCH, token: search })
+                        dispatch({ type: reducerCases.SET_SEARCH, token: find })
                     }
                 })
                 .catch(function (error) {
@@ -39,14 +39,17 @@ export default function SearchForm() {
                 });
         }, 250);
         return () => clearTimeout(timeoutId);
-    }, [search]);
+    }, [find]);
 
     return (
         <Box sx={{ width: 300 }}>
             <TextField fullWidth variant="filled" label="Search"
                 size="small" color="primary"
-                sx={{
+                sx={(theme)=>({
                     borderRadius: 1,
+                    '&.MuiTextField-root': {
+                        bgcolor: theme.palette.secondary.light
+                    },
                     '& .MuiFilledInput-root::before': {
                         borderBottom: '1px solid transparent',
                     },
@@ -57,8 +60,8 @@ export default function SearchForm() {
                     '& .MuiFormLabel-root': {
                         transform: { xs: 'translate(8px, 4px) scale(0.65)', sm: 'translate(12px, 4px) scale(0.65)' }
                     }
-                }}
-                value={search} onChange={onChange}
+                })}
+                value={find} onChange={onChange}
                 slotProps={{
                     input: {
                         endAdornment: (

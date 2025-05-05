@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar sx={{ justifyContent: 'space-between' }}>
-                <Typography color="primary" variant="h6" component="h6"
+                <Typography color="primary" variant="h4" component="h1"
                     fontFamily='Pixelify Sans'>
                     Anime
                 </Typography>

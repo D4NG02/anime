@@ -17,7 +17,7 @@ interface props {
 
 export default function CardAnime({ data }: props) {
     let navigate = useNavigate();
-        const [{  }, dispatch] = useStateProvider()
+    const [{ }, dispatch] = useStateProvider()
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
@@ -47,11 +47,13 @@ export default function CardAnime({ data }: props) {
 
     return (
         <Suspense fallback={<Loading />}>
-            <Card sx={{
-                bgcolor: 'transparent', width: { xs: 'calc(50% - 8px)', sm: 225 },
+            <Card sx={(theme) => ({
+                color: 'white',
+                bgcolor: theme.palette.secondary.light, 
+                width: { xs: 'calc(50% - 8px)', sm: 225 },
                 display: 'grid', gridTemplateRows: 'auto 80px max-content max-content',
                 alignItems: 'center', border: open ? '1px solid white' : '1px solid transparent'
-            }}>
+            })}>
                 <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}
                     onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} />
                 <CardHeader title={data.title.slice(0, 30)}
@@ -74,21 +76,22 @@ export default function CardAnime({ data }: props) {
                         {data.duration.split(' ')[0] + 'm'}
                     </Typography>
 
-                    {data.rating && data.rating.includes('R+') && <>
+                    {data.rating && data.rating.includes('R') && <>
                         <Box sx={{ borderRadius: 0.75, height: 6, width: 6, color: 'transparent', bgcolor: 'gray' }}>dot</Box>
                         <Typography variant="subtitle2"
                             sx={(theme) => ({
                                 bgcolor: theme.palette.error.main,
                                 padding: '0.08rem 0.4rem', borderRadius: 1.25
                             })}
-                        >18+</Typography>
+                        >{data.rating.split(' - ')[0]}</Typography>
                     </>
                     }
                 </CardContent>
                 <CardActions sx={{ paddingInline: { xs: 1.2, sm: 2 }, paddingBlock: { xs: 1.2, sm: 2 } }}>
                     <Button variant="contained" onClick={handleFullAnime}
                         startIcon={<PlayArrowIcon />}
-                        sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4.4 }}>Learn More</Button>
+                        sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4.4 }}>
+                        Learn More</Button>
                 </CardActions>
             </Card>
 

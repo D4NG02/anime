@@ -31,7 +31,21 @@ export default function PaginationSearch() {
         <Box component='section' sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
             <Pagination count={pagination.items.count} page={page} onChange={handleChangePage}
                 siblingCount={0} boundaryCount={1} showFirstButton showLastButton
-                color='primary' variant='outlined' />
+                color='primary' variant='outlined'
+                sx={(theme) => ({
+                    '& .MuiPaginationItem-root:not(.Mui-selected):not(.MuiPaginationItem-ellipsis)': {
+                        color: theme.palette.secondary.contrastText,
+                        border: `1px solid ${theme.palette.secondary.light}aa`,
+                        backgroundColor: `${theme.palette.secondary.dark}50`,
+                        ":hover": {
+                            border: `1px solid ${theme.palette.primary.light}1f`,
+                            backgroundColor: `${theme.palette.primary.dark}20`,
+                        }
+                    },
+                    '& .MuiPaginationItem-root:is(.MuiPaginationItem-ellipsis)': {
+                        color: theme.palette.secondary.contrastText
+                    }
+                })} />
         </Box>
     );
 }
