@@ -1,5 +1,5 @@
 import { Button, Container, Typography } from "@mui/material";
-import Header from "../containers/Header";
+// import Header from "../containers/Header";
 import { useNavigate } from "react-router";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
 
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <Container sx={{
                 marginTop: { xs: 9.2, sm: 12 }, marginBottom: 4,
                 minHeight: { xs: 'calc(100vh - (9.2 * 8px) - (4 * 8px))', sm: 'calc(100vh - (13 * 8px) - (4 * 8px))' },
