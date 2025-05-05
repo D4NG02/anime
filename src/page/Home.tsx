@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import Header from "../containers/Header";
 import { useNavigate } from "react-router";
 
