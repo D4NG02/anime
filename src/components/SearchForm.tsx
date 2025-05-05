@@ -7,7 +7,7 @@ import { reducerCases } from "../Utility/Reducer/Constant";
 import { ErrorGetAnimeSearch } from "../Utility/ApiErrorHandle";
 
 export default function SearchForm() {
-    const [{ search, itemPerPage }, dispatch] = useStateProvider()
+    const [{ search, itemPerPage, page }, dispatch] = useStateProvider()
     const [find, setFind] = useState<string>(search)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,12 +16,12 @@ export default function SearchForm() {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            dispatch({ type: reducerCases.SET_PAGE, token: 1 })
+            search !== find && dispatch({ type: reducerCases.SET_PAGE, token: 1 })
             axios.get('https://api.jikan.moe/v4/anime',
                 {
                     params: {
                         q: find,
-                        page: 1,
+                        page: search !== find ? 1 : page,
                         limit: itemPerPage,
                         order_by: 'title',
                         sort: 'asc'
