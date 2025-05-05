@@ -1,7 +1,10 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br />
 Deploy at vercel, https://anime-mocha-delta.vercel.app/
+<br />
+Utilize https://docs.api.jikan.moe/ api.
 
 ## Available Scripts
 
