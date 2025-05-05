@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { animeType } from "../Utility/type";
 import Header from "../containers/Header";
@@ -8,7 +8,7 @@ const SkeletonCardAnime = lazy(() => import('../components/SkeletonCardAnime'));
 const CardAnime = lazy(() => import('../components/CardAnime'));
 
 export default function Search() {
-    const [{ anime }] = useStateProvider()
+    const [{ search, anime }] = useStateProvider()
 
     return (
         <>
@@ -27,6 +27,10 @@ export default function Search() {
                                 <CardAnime key={idx} data={data} />
                             )
                         })}
+                        {search && anime.length === 0 && <>
+                            <Typography variant="h3" component='h1' color='primary' textAlign='center'>No Results found</Typography>
+                            <Typography variant="h5" component='h2' color='primary' textAlign='center'>Seach again</Typography>
+                        </>}
                     </Suspense>
                 </Box>
                 {anime.length > 0 && <PaginationSearch />}
