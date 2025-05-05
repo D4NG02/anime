@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
-import { lazy, MouseEvent, Suspense, useState } from "react";
+import { lazy, MouseEvent, useState } from "react";
 import {
     Box, Button, Card, CardActions, CardContent,
-    CardHeader, CardMedia, Skeleton,
+    CardHeader, CardMedia,
     Typography
 } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -35,18 +35,8 @@ export default function CardAnime({ data }: props) {
         navigate('/detail' + data.url.split(String(data.mal_id))[1]);
     }
 
-    const Loading = () => {
-        return (
-            <Box>
-                <Skeleton variant='rectangular' height={200} />
-                <Skeleton variant='rectangular' height={30} />
-                <Skeleton variant='rectangular' height={10} />
-            </Box>
-        )
-    }
-
     return (
-        <Suspense fallback={<Loading />}>
+        <>
             <Card sx={(theme) => ({
                 color: 'white',
                 bgcolor: theme.palette.secondary.light, 
@@ -96,6 +86,6 @@ export default function CardAnime({ data }: props) {
             </Card>
 
             <PopoverAnimeDetail open={open} anchorEl={anchorEl} handleClose={handlePopoverClose} data={data} />
-        </Suspense>
+        </>
     );
 }
