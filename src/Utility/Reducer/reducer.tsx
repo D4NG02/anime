@@ -3,6 +3,7 @@ import { reducerCases } from "./Constant"
 export const initialState = {
     search: '',
     anime: [],
+    detail: [],
     pagination: {},
     itemPerPage: 12,
     page: 1
@@ -20,6 +21,9 @@ const reducer = (state: any, action: any) => {
 
         case reducerCases.SET_PAGE:
             return { ...state, page: action.token }
+
+        case reducerCases.SET_DETAIL:
+            return { ...state, detail: action.token }
 
         default:
             console.log("Error reducerCases type")

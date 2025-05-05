@@ -1,21 +1,28 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
-import AppbarContainer from './containers/AppbarContainer';
-import MainContainer from './containers/MainContainer';
 import reducer, { initialState } from './Utility/Reducer/reducer';
 import { StateProvider } from './Utility/Reducer/StateProvider';
+import Home from "./page/Home";
+import Search from "./page/Search";
+import Detail from "./page/Detail";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainContainer />,
+    element: <Home />
+  },
+  {
+    path: "search",
+    element: <Search />
+  },
+  {
+    path: "detail/:title",
+    element: <Detail />
   },
 ]);
 
 function App() {
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
-      <AppbarContainer />
-
       <RouterProvider router={router} />
       <Outlet />
     </StateProvider>
