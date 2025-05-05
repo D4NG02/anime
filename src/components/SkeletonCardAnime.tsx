@@ -13,8 +13,7 @@ export default function SkeletonCardAnime() {
                         gap: 1, display: 'flex',
                         flexDirection: 'column',
                         bgcolor: theme.palette.secondary.light +'40',
-                        padding: 2,
-                        width: { xs: 'calc(50% - 38px)', sm: 200 } })}>
+                        padding: 2 })}>
                         <Skeleton variant='rectangular' height={140}
                         sx={(theme)=>({
                             bgcolor: theme.palette.primary.light +'40'

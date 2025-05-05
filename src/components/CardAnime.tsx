@@ -40,7 +40,6 @@ export default function CardAnime({ data }: props) {
             <Card sx={(theme) => ({
                 color: 'white',
                 bgcolor: theme.palette.secondary.light, 
-                width: { xs: 'calc(50% - 8px)', sm: 225 },
                 display: 'grid', gridTemplateRows: 'auto 80px max-content max-content',
                 alignItems: 'center', border: open ? '1px solid white' : '1px solid transparent'
             })}>
