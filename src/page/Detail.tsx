@@ -9,7 +9,7 @@ export default function Detail() {
     return (
         <Container sx={{
             color: 'whitesmoke',
-            paddingBlock: 3
+            paddingBlock: 6
         }}>
             <Box sx={{
                 gap: { xs: 2, md: 3 }, display: 'grid',

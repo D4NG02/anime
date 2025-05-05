@@ -7,15 +7,14 @@ interface props {
 export default function Studios({ studio }: props) {
     return (
         <>
-            <Stack direction='row' alignItems='center' marginBlock={1}
+            <Stack direction='row' alignItems='flex-end' marginBottom='0.7em'
                 gap={0.6} flexWrap='wrap'>
-                <Typography variant="body2" component='p'
-                    sx={{ overflowY: 'clip', maxHeight: 92, textOverflow: 'ellipsis' }}>
+                <Typography variant="body1" component='span'>
                     Studios:&nbsp; {studio.length === 0 && 'N/A'}
                 </Typography>
                 {studio.length > 0 && studio.map(({ name }: { name: string }, idx: number) => {
                     return (
-                        <Typography key={idx} variant="body2" component='a' fontFamily='open sans'
+                        <Typography key={idx} variant="inherit" component='a' fontFamily='open sans'
                             sx={{ overflowY: 'clip', maxHeight: 92, textOverflow: 'ellipsis' }}>
                             {name}
                             {idx !== studio.length - 1 && ', '}

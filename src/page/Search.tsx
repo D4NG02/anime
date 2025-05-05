@@ -23,9 +23,13 @@ export default function Search() {
                 paddingTop: { xs: 9.2, sm: 12 }, paddingBottom: 3
             }}>
                 <Box component='section' sx={{
-                    display: 'flex', flexWrap: 'wrap',
-                    gap: anime.length > 0 ? { xs: 1.5, sm: 3 } : 'unset',
-                    flexDirection: anime.length > 0 ? 'unset' : 'column'
+                    gap: anime.length > 0 ? { xs: 1.6, sm: 2, lg: 3 } : 'unset',
+                    display: 'grid',
+                    gridTemplateColumns: {
+                        xs: 'repeat(2, 1fr)',
+                        sm: 'repeat(3, 1fr)',
+                        md: 'repeat(4, 1fr)'
+                    }
                 }}>
                     <Suspense fallback={<SkeletonCardAnime />}>
                         {search && anime.length === 0 && <>
