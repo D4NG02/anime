@@ -42,7 +42,7 @@ export default function SearchForm() {
     }, [find]);
 
     return (
-        <Box sx={{ width: 300 }}>
+        <Box sx={{ width: {xs: 200, sm: 300} }}>
             <TextField fullWidth variant="filled" label="Search"
                 size="small" color="primary"
                 sx={(theme)=>({
