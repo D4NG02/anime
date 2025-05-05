@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState, ChangeEvent } from "react";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -8,14 +7,8 @@ import { reducerCases } from "../Utility/Reducer/Constant";
 import { ErrorGetAnimeSearch } from "../Utility/ApiErrorHandle";
 
 export default function SearchForm() {
-    let location = useLocation()
-    let navigate = useNavigate();
     const [{ search, itemPerPage }, dispatch] = useStateProvider()
     const [find, setFind] = useState<string>(search)
-
-    const navigateToSearch = () => {
-        navigate('/search');
-    }
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFind(e.target.value)
@@ -39,7 +32,6 @@ export default function SearchForm() {
                     if (response.status === 200) {
                         dispatch({ type: reducerCases.SET_ANIME_LIST, token: response.data })
                         dispatch({ type: reducerCases.SET_SEARCH, token: find })
-                        location.pathname === "/" && navigateToSearch()
                     }
                 })
                 .catch(function (error) {
@@ -58,18 +50,11 @@ export default function SearchForm() {
                     '&.MuiTextField-root': {
                         bgcolor: theme.palette.secondary.light
                     },
-                    '& .MuiInputLabel-root': {
-                        color: theme.palette.primary.light,
-                    },
-                    '& .MuiSvgIcon-root': {
-                        fill: theme.palette.primary.light,
-                    },
                     '& .MuiFilledInput-root::before': {
                         borderBottom: '1px solid transparent',
                     },
                     '& .MuiFilledInput-input': {
                         height: '1.3em',
-                        color: theme.palette.primary.light,
                         padding: { xs: '18px 8px 0px', sm: '20px 12px 4px' }
                     },
                     '& .MuiFormLabel-root': {
