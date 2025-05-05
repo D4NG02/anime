@@ -28,7 +28,7 @@ export const CustomTheme = createTheme({
         MuiContainer: {
             styleOverrides: {
                 root: {
-                    minHeight: '100vh'
+                    minHeight: '86vh'
                 }
             }
         },
