@@ -1,36 +1,23 @@
-import axios from "axios";
 import { ChangeEvent } from "react";
 import { Box, Pagination } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
-import { ErrorGetAnimeSearch } from "../Utility/ApiErrorHandle";
+import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
 
 export default function PaginationSearch() {
-    const [{ search, page, itemPerPage, pagination }, dispatch] = useStateProvider()
+    const { state, dispatch } = useStateProvider()
 
-    const handleChangePage = async (event: ChangeEvent<unknown>, value: number) => {
-        axios.get('https://api.jikan.moe/v4/anime', {
-            params: {
-                q: search,
-                page: value,
-                limit: itemPerPage,
-                order_by: 'title',
-                sort: 'asc'
-            },
-        }).then(function (response) {
-            if (response.status === 200) {
-                dispatch({ type: reducerCases.SET_ANIME_LIST, token: response.data })
-                dispatch({ type: reducerCases.SET_PAGE, token: value })
-            }
-        }).catch(function (error) {
-            ErrorGetAnimeSearch(error)
-        });
+    const handleChangePage = async (_: ChangeEvent<unknown>, value: number) => {
+        dispatch({ type: reducerCases.SET_PAGE, payload: value })
+        ApiGetAnime(state.search, state.search, value, state.itemPerPage, (data) => {
+            dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
+        })
     };
 
     return (
         <Box component='section' sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-            <Pagination count={pagination.items.count} page={page} onChange={handleChangePage}
-                siblingCount={0} boundaryCount={1} showFirstButton showLastButton
+            <Pagination count={state.pagination.items.count} page={state.page} onChange={handleChangePage}
+                boundaryCount={1} showFirstButton showLastButton
                 color='primary' variant='outlined'
                 sx={(theme) => ({
                     '& .MuiPaginationItem-root:not(.Mui-selected):not(.MuiPaginationItem-ellipsis)': {
@@ -44,6 +31,9 @@ export default function PaginationSearch() {
                     },
                     '& .MuiPaginationItem-root:is(.MuiPaginationItem-ellipsis)': {
                         color: theme.palette.secondary.contrastText
+                    },
+                    '& :is(.MuiPaginationItem-firstLast)': {
+                        display: { xs: 'none', sm: 'revert' }
                     }
                 })} />
         </Box>

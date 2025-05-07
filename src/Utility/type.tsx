@@ -1,4 +1,4 @@
-export interface animeType {
+export interface searchAnimeType {
     mal_id: number,
     url: string,
     images: {
@@ -10,6 +10,8 @@ export interface animeType {
         }
     },
     title: string,
+    title_japanese : string,
+    title_synonyms : string,
     titles: { type: string, title: string }[],
     type: string,
     duration: string,
@@ -17,7 +19,11 @@ export interface animeType {
     score: number,
     episodes: string,
     synopsis: string,
+    season : string,
+    year : number,
     aired: { from: string, to: string },
     status: string,
-    genres: { name: string }[]
+    genres: { name: string }[],
+    producers: { name: string }[],
+    studios: { name: string }[]
 }
