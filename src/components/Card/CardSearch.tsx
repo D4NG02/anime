@@ -6,18 +6,18 @@ import {
     Typography
 } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { animeType } from "../Utility/type";
-import { useStateProvider } from "../Utility/Reducer/StateProvider";
-import { reducerCases } from "../Utility/Reducer/Constant";
-const PopoverAnimeDetail = lazy(() => import('./PopoverAnimeDetail'));
+import { searchAnimeType } from "../../Utility/type";
+import { useStateProvider } from "../../Utility/Reducer/StateProvider";
+import { reducerCases } from "../../Utility/Reducer/Constant";
+const PopoverAnimeDetail = lazy(() => import('../PopoverAnimeDetail'));
 
 interface props {
-    data: animeType
+    data: searchAnimeType
 }
 
-export default function CardAnime({ data }: props) {
+export default function CardSearch({ data }: props) {
     let navigate = useNavigate();
-    const [{ }, dispatch] = useStateProvider()
+    const { dispatch } = useStateProvider()
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {
@@ -30,8 +30,8 @@ export default function CardAnime({ data }: props) {
 
     const open = Boolean(anchorEl);
 
-    const handleFullAnime = () => {
-        dispatch({ type: reducerCases.SET_DETAIL, token: data })
+    const handleLearnMore = () => {
+        dispatch({ type: reducerCases.SET_DETAIL, payload: data })
         navigate('/detail' + data.url.split(String(data.mal_id))[1]);
     }
 
@@ -39,13 +39,14 @@ export default function CardAnime({ data }: props) {
         <>
             <Card sx={(theme) => ({
                 color: 'white',
-                bgcolor: theme.palette.secondary.light, 
-                display: 'grid', gridTemplateRows: 'auto 80px max-content max-content',
-                alignItems: 'center', border: open ? '1px solid white' : '1px solid transparent'
+                bgcolor: theme.palette.secondary.light,
+                display: 'grid', alignItems: 'center',
+                gridTemplateRows: 'auto 80px max-content max-content',
+                border: open ? `1px solid ${theme.palette.primary.light}` : '1px solid transparent'
             })}>
                 <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}
                     onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} />
-                <CardHeader title={data.title.slice(0, 30)}
+                <CardHeader title={data.title.slice(0, 54)}
                     sx={{
                         overflowY: 'clip', paddingInline: { xs: 1.2, sm: 2 },
                         '& .MuiTypography-root': {
@@ -62,7 +63,7 @@ export default function CardAnime({ data }: props) {
                     </Typography>
                     <Box sx={{ borderRadius: 0.75, height: 6, width: 6, color: 'transparent', bgcolor: 'gray' }}>dot</Box>
                     <Typography variant="subtitle2">
-                        {data.duration.split(' ')[0] + 'm'}
+                        {data.duration !== 'Unknown' ? data.duration.split(' ')[0] + 'm' : 'N/A'}
                     </Typography>
 
                     {data.rating && data.rating.includes('R') && <>
@@ -77,7 +78,7 @@ export default function CardAnime({ data }: props) {
                     }
                 </CardContent>
                 <CardActions sx={{ paddingInline: { xs: 1.2, sm: 2 }, paddingBlock: { xs: 1.2, sm: 2 } }}>
-                    <Button variant="contained" onClick={handleFullAnime}
+                    <Button variant="contained" onClick={handleLearnMore}
                         startIcon={<PlayArrowIcon />}
                         sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4.4 }}>
                         Learn More</Button>

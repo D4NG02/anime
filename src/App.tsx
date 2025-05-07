@@ -1,5 +1,5 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
-import reducer, { initialState } from './Utility/Reducer/reducer';
+import reducer, { state } from './Utility/Reducer/reducer';
 import { StateProvider } from './Utility/Reducer/StateProvider';
 import Home from "./page/Home";
 import Search from "./page/Search";
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <StateProvider initialState={initialState} reducer={reducer}>
+    <StateProvider state={state} reducer={reducer}>
       <RouterProvider router={router} />
       <Outlet />
     </StateProvider>

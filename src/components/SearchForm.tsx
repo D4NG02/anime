@@ -1,14 +1,13 @@
-import axios from "axios";
 import { useEffect, useState, ChangeEvent } from "react";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
-import { ErrorGetAnimeSearch } from "../Utility/ApiErrorHandle";
+import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
 
 export default function SearchForm() {
-    const [{ search, itemPerPage, page }, dispatch] = useStateProvider()
-    const [find, setFind] = useState<string>(search)
+    const { state, dispatch } = useStateProvider()
+    const [find, setFind] = useState<string>(state.search)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFind(e.target.value)
@@ -16,36 +15,21 @@ export default function SearchForm() {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            search !== find && dispatch({ type: reducerCases.SET_PAGE, token: 1 })
-            axios.get('https://api.jikan.moe/v4/anime',
-                {
-                    params: {
-                        q: find,
-                        page: search !== find ? 1 : page,
-                        limit: itemPerPage,
-                        order_by: 'title',
-                        sort: 'asc'
-                    },
-                }
-            )
-                .then(function (response) {
-                    if (response.status === 200) {
-                        dispatch({ type: reducerCases.SET_ANIME_LIST, token: response.data })
-                        dispatch({ type: reducerCases.SET_SEARCH, token: find })
-                    }
-                })
-                .catch(function (error) {
-                    ErrorGetAnimeSearch(error)
-                });
+            state.search !== find && dispatch({ type: reducerCases.SET_PAGE, payload: 1 })
+            dispatch({ type: reducerCases.SET_SEARCH, payload: find })
+
+            ApiGetAnime(find, state.search, state.page, state.itemPerPage, (data) => {
+                dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
+            })
         }, 250);
         return () => clearTimeout(timeoutId);
     }, [find]);
 
     return (
-        <Box sx={{ width: {xs: 200, sm: 300} }}>
+        <Box sx={{ width: { xs: 200, sm: 300 } }}>
             <TextField fullWidth variant="filled" label="Search"
                 size="small" color="primary"
-                sx={(theme)=>({
+                sx={(theme) => ({
                     borderRadius: 1,
                     '&.MuiTextField-root': {
                         bgcolor: theme.palette.secondary.light
