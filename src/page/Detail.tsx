@@ -1,33 +1,30 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router'
+import { ScrollRestoration } from "react-router";
 import { Box, Container } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
+import Recommend from '../containers/Recommend';
 
 export default function Detail() {
-    let navigate = useNavigate();
-    const [{ detail }] = useStateProvider()
-
-    useEffect(() => {
-        const delay = setTimeout(() => {
-            detail === null && navigate('/');
-        }, 250);
-        return (()=>{
-            clearTimeout(delay)
-        })
-    }, []);
+    const { state } = useStateProvider()
 
     return (
         <Container sx={{
             color: 'whitesmoke',
-            paddingBlock: 6
+            paddingBlock: 4
         }}>
-            {detail && <Box sx={{
+            <ScrollRestoration
+                getKey={(location) => {
+                    return location.key;
+                }}
+            />
+            {state.detail && <Box component='section' sx={(theme) => ({
+                padding: 2, borderRadius: 3,
+                bgcolor: theme.palette.secondary.light + '5f',
                 gap: { xs: 2, md: 3 }, display: 'grid',
                 gridTemplateRows: { xs: 'auto auto', lg: 'auto' },
                 gridTemplateColumns: { xs: 'auto', lg: 'auto 280px' }
-            }}>
+            })}>
                 <Box sx={{
                     display: 'grid',
                     gap: { xs: 2, md: 3 },
@@ -36,7 +33,7 @@ export default function Detail() {
                     gridTemplateColumns: { xs: 'auto', sm: '180px auto', md: '210px auto' }
                 }}>
                     <Box>
-                        <img src={detail.images.webp.image_url} alt={detail.title}
+                        <img src={state.detail.images.webp.image_url} alt={state.detail.title}
                             style={{ width: '100%' }} />
                     </Box>
 
@@ -45,6 +42,8 @@ export default function Detail() {
 
                 <AnimeInfo />
             </Box>}
+
+            {state.detail && <Recommend />}
         </Container>
     );
 }

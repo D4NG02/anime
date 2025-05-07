@@ -1,16 +1,15 @@
 import { Chip } from "@mui/material";
+import { GenreType } from "../Utility/GenreType";
 
 interface props {
     text: string
 }
 
-const nude = ['Erotica', 'Hentai']
-
 export default function ChipGenre({ text }: props) {
     return (
         <Chip size="small" variant='filled'
             label={text ? text : 'N/A'}
-            color={nude.includes(text) ? 'error' : 'info'}
+            color={GenreType.nude.includes(text) ? 'error' : 'info'}
             sx={{ fontFamily: 'open sans' }}
         />
     );

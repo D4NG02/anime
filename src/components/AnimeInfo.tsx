@@ -3,21 +3,22 @@ import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import Genres from "./Genres";
 import Studios from "./Studios";
 import Producers from "./Producers";
+import { useCallback } from "react";
 
 export default function AnimeInfo() {
-    const [{ detail }] = useStateProvider()
+    const { state } = useStateProvider()
 
-    const Parent = (props: { text: string, children: any }) => {
+    const Parent = useCallback((props: { text: string, children: any }) => {
         return (
             <Box sx={{ marginBottom: '0.7em' }}>
                 <Typography variant="body1" component='span'
                     sx={{ marginRight: '0.5em' }}>
-                    {props.text +':'}
+                    {props.text + ':'}
                 </Typography>
                 {props.children}
             </Box>
         )
-    }
+    }, [])
 
     return (
         <Box sx={(theme) => ({
@@ -33,48 +34,49 @@ export default function AnimeInfo() {
                 sx={{
                     display: { xs: 'revert', sm: 'none' }, opacity: 0.6,
                     marginBottom: '0.7em'
-                }}>{detail.synopsis}</Typography>
+                }}>{state.detail.synopsis}</Typography>
 
-            {detail.title_japanese && <Parent text="Japanese">
+            {state.detail.title_japanese && <Parent text="Japanese">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {detail.title_japanese}
+                    {state.detail.title_japanese}
                 </Typography>
             </Parent>}
 
-            {detail.title_synonyms.length > 0 && <Parent text="Synonyms">
+            {state.detail.title_synonyms.length > 0 && <Parent text="Synonyms">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {detail.title_synonyms.length > 0 ? detail.title_synonyms[0] : 'N/A'}
+                    {state.detail.title_synonyms.length > 0 ? state.detail.title_synonyms[0] : 'N/A'}
                 </Typography>
             </Parent>}
 
             <Parent text="Score">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {detail.score ? detail.score : 'N/A'}</Typography>
+                    {state.detail.score ? state.detail.score : 'N/A'}</Typography>
             </Parent>
 
             <Parent text="Aired">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {(new Date(detail.aired.from)).toLocaleDateString() + ' to '}
-                    {detail.status.includes('Complete') ?
-                        (new Date(detail.aired.to)).toLocaleDateString() : '?'}
+                    {(new Date(state.detail.aired.from)).toLocaleDateString() + ' to '}
+                    {state.detail.status.includes('Complete') ?
+                        (new Date(state.detail.aired.to)).toLocaleDateString() : '?'}
                 </Typography>
             </Parent>
 
             <Parent text="Status">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {detail.status ? detail.status : 'N/A'}</Typography>
+                    {state.detail.status ? state.detail.status : 'N/A'}</Typography>
             </Parent>
 
             <Parent text="Premiered">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {detail.season ?
-                        String(detail.season).charAt(0).toUpperCase() + String(detail.season).slice(1) + ' ' + detail.year
+                    {state.detail.season ?
+                        String(state.detail.season).charAt(0).toUpperCase() +
+                        String(state.detail.season).slice(1) + ' ' + state.detail.year
                         : 'N/A'}</Typography>
             </Parent>
 
-            <Genres genres={detail.genres} />
-            <Studios studio={detail.studios} />
-            <Producers producer={detail.producers} />
+            <Genres genres={state.detail.genres} />
+            <Studios studio={state.detail.studios} />
+            <Producers producer={state.detail.producers} />
         </Box>
     );
 }

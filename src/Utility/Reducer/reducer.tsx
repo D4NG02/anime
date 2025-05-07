@@ -1,29 +1,78 @@
+import { searchAnimeType } from "../type"
 import { reducerCases } from "./Constant"
 
-export const initialState = {
+export interface stateType {
+    search: string,
+    searchAnime: any[],
+    detail: searchAnimeType,
+    pagination: { items: { count: number } },
+    itemPerPage: number,
+    page: number,
+    recommend: any[],
+    historyID: any[],
+}
+export interface actionType { type: string, payload: any }
+
+export const state: stateType = {
     search: '',
-    anime: [],
-    detail: null,
-    pagination: {},
+    page: 1,
     itemPerPage: 12,
-    page: 1
+    detail: {
+        mal_id: 0,
+        url: '',
+        images: {
+            jpg: { image_url: '' },
+            webp: { image_url: '' }
+        },
+        title: '',
+        title_japanese : '',
+        title_synonyms : '',
+        titles: [],
+        type: '',
+        duration: '',
+        rating: '',
+        score: 0,
+        episodes: '',
+        synopsis: '',
+        season : '',
+        year : 2000,
+        aired: { from: '', to: '' },
+        status: '',
+        genres: [],
+        producers: [],
+        studios: []
+    },
+    pagination: { items: { count: 1 } },
+    searchAnime: [],
+    recommend: [],
+    historyID: [],
 }
 
-export const initialStateType = typeof initialState
-
-const reducer = (state: any, action: any) => {
+const reducer = (state: stateType, action: actionType) => {
     switch (action.type) {
         case reducerCases.SET_SEARCH:
-            return { ...state, search: action.token }
+            return { ...state, search: action.payload }
 
         case reducerCases.SET_ANIME_LIST:
-            return { ...state, anime: action.token.data, pagination: action.token.pagination }
+            return { ...state, searchAnime: action.payload.data, pagination: action.payload.pagination }
 
         case reducerCases.SET_PAGE:
-            return { ...state, page: action.token }
+            return { ...state, page: action.payload }
 
         case reducerCases.SET_DETAIL:
-            return { ...state, detail: action.token }
+            return { ...state, detail: action.payload }
+
+        case reducerCases.RESET_DETAIL:
+            return { ...state, detail: state.detail }
+
+        case reducerCases.SET_RECOMMEND:
+            return { ...state, recommend: action.payload.data }
+
+        case reducerCases.RESET_RECOMMEND:
+            return { ...state, recommend: [] }
+
+        case reducerCases.SET_HISTORY_ID:
+            return { ...state, historyID: action.payload }
 
         default:
             console.log("Error reducerCases type")

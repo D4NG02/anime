@@ -8,7 +8,7 @@ export default function ChipRating({ text }: props) {
     return (
         <Chip
             label={text ? text.split(' - ')[0] : 'N/A'}
-            color={text.includes('R') ? 'error' : 'info'}
+            color={text && text.includes('R') ? 'error' : 'info'}
         />
     );
 }
