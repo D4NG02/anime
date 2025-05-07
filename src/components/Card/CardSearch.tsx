@@ -17,7 +17,7 @@ interface props {
 
 export default function CardSearch({ data }: props) {
     let navigate = useNavigate();
-    const { state, dispatch } = useStateProvider()
+    const { dispatch } = useStateProvider()
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handlePopoverOpen = (event: MouseEvent<HTMLElement>) => {

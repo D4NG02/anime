@@ -3,7 +3,6 @@ import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
-import { ErrorJikanApi } from "../Utility/Api/ApiErrorHandle";
 import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
 
 export default function SearchForm() {

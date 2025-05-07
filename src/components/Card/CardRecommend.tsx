@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router";
-import {
-    Button, Card, CardActions,
-    CardHeader, CardMedia
-} from "@mui/material";
+import { Button, Card, CardActions, CardHeader, CardMedia } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
