@@ -2,14 +2,7 @@ import { lazy, useEffect } from "react";
 import { reducerCases } from "../Utility/Reducer/Constant";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { ApiGetRecommendById } from "../Utility/Api/ApiGetRecommendById";
-
-const PresenterRecommend = lazy(() => {
-    return Promise.all([
-        import("../presenter/PresenterRecommend"),
-        new Promise(resolve => setTimeout(resolve, 200))
-    ])
-        .then(([moduleExports]) => moduleExports);
-});
+import PresenterRecommend from "../presenter/PresenterRecommend";
 
 export default function Recommend() {
     const { state, dispatch } = useStateProvider()
