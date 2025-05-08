@@ -1,15 +1,16 @@
-import { searchAnimeType } from "../type"
+import { animeType } from "../type"
 import { reducerCases } from "./Constant"
 
 export interface stateType {
     search: string,
-    searchAnime: any[],
-    detail: searchAnimeType,
+    searchAnime: animeType[],
+    detail: animeType,
     pagination: { items: { count: number } },
     itemPerPage: number,
     page: number,
     recommend: any[],
     historyID: any[],
+    popular: animeType[],
 }
 export interface actionType { type: string, payload: any }
 
@@ -25,20 +26,20 @@ export const state: stateType = {
             webp: { image_url: '' }
         },
         title: '',
-        title_japanese : '',
-        title_synonyms : '',
+        title_japanese: '',
+        title_synonyms: '',
         titles: [],
         type: '',
         duration: '',
         rating: '',
         score: 0,
-        episodes: '',
+        episodes: 0,
         synopsis: '',
-        season : '',
-        year : 2000,
+        season: '',
+        year: 0,
         aired: { from: '', to: '' },
         status: '',
-        genres: [],
+        genres: [], 
         producers: [],
         studios: []
     },
@@ -46,6 +47,7 @@ export const state: stateType = {
     searchAnime: [],
     recommend: [],
     historyID: [],
+    popular: [],
 }
 
 const reducer = (state: stateType, action: actionType) => {
@@ -62,17 +64,20 @@ const reducer = (state: stateType, action: actionType) => {
         case reducerCases.SET_DETAIL:
             return { ...state, detail: action.payload }
 
-        case reducerCases.RESET_DETAIL:
-            return { ...state, detail: state.detail }
-
         case reducerCases.SET_RECOMMEND:
             return { ...state, recommend: action.payload.data }
 
-        case reducerCases.RESET_RECOMMEND:
-            return { ...state, recommend: [] }
-
         case reducerCases.SET_HISTORY_ID:
             return { ...state, historyID: action.payload }
+
+        case reducerCases.SET_POPULAR:
+            return { ...state, popular: action.payload.data }
+
+        case reducerCases.RESET_DETAIL:
+            return { ...state, detail: state.detail }
+
+        case reducerCases.RESET_RECOMMEND:
+            return { ...state, recommend: [] }
 
         default:
             console.log("Error reducerCases type")

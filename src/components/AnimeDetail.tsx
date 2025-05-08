@@ -32,7 +32,7 @@ export default function AnimeDetail() {
 
     return (
         <Box>
-            <Typography variant="h4" component='h1'
+            <Typography variant="h4" component='h2'
                 sx={{
                     textAlign: { xs: 'center', sm: 'unset' },
                     maxWidth: { xs: 400, sm: 'unset' },

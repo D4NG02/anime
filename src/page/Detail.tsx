@@ -4,15 +4,13 @@ import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
 import Recommend from '../containers/Recommend';
+import Popular from "../containers/Popular";
 
 export default function Detail() {
     const { state } = useStateProvider()
 
     return (
-        <Container sx={{
-            color: 'whitesmoke',
-            paddingBlock: 4
-        }}>
+        <Container sx={{ color: 'whitesmoke', paddingBlock: 4}}>
             <ScrollRestoration
                 getKey={(location) => {
                     return location.key;
@@ -43,7 +41,8 @@ export default function Detail() {
                 <AnimeInfo />
             </Box>}
 
-            {state.detail && <Recommend />}
+            <Recommend />
+            <Popular />
         </Container>
     );
 }
