@@ -55,9 +55,10 @@ export default function AnimeInfo() {
 
             <Parent text="Aired">
                 <Typography variant='inherit' component='span' fontFamily='open sans'>
-                    {(new Date(state.detail.aired.from)).toLocaleDateString() + ' to '}
-                    {state.detail.status.includes('Complete') ?
-                        (new Date(state.detail.aired.to)).toLocaleDateString() : '?'}
+                    {state.detail.episodes === 1 ? (new Date(state.detail.aired.from)).toLocaleDateString() :
+                        (new Date(state.detail.aired.from)).toLocaleDateString() + ' to ' +
+                        (new Date(state.detail.aired.to)).toLocaleDateString()
+                    }
                 </Typography>
             </Parent>
 

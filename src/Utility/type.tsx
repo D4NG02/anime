@@ -1,4 +1,4 @@
-export interface searchAnimeType {
+export interface animeType {
     mal_id: number,
     url: string,
     images: {
@@ -17,7 +17,7 @@ export interface searchAnimeType {
     duration: string,
     rating: string,
     score: number,
-    episodes: string,
+    episodes: number,
     synopsis: string,
     season : string,
     year : number,
