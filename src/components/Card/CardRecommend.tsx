@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import { Button, Card, CardActions, CardHeader, CardMedia } from "@mui/material";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
 import { ApiGetAnimeById } from "../../Utility/Api/ApiGetAnimeById";
@@ -42,23 +41,26 @@ export default function CardRecommend({ entry }: props) {
                 color: 'white',
                 bgcolor: theme.palette.secondary.light,
                 display: 'grid', alignItems: 'center',
-                gridTemplateRows: 'auto 80px max-content max-content',
+                gridTemplateRows: '1fr max-content max-content',
                 border: '1px solid transparent',
                 ':hover': { border: `1px solid ${theme.palette.primary.light}` }
             })}>
                 <CardMedia component="img" image={entry.images.webp.image_url} alt={entry.title} />
-                <CardHeader title={entry.title.slice(0, 30)}
+                <CardHeader slotProps={{ title: { component: 'h2' } }} title={
+                    entry.title.slice(31, 35) !== '' ?
+                        entry.title.slice(0, 30) + '...' : entry.title.slice(0, 30)
+                }
                     sx={{
-                        overflowY: 'clip', paddingInline: { xs: 1.2, sm: 2 },
+                        overflowY: 'clip', paddingInline: 1,
                         '& .MuiTypography-root': {
-                            fontSize: { xs: '1.15rem', sm: '1.3rem' },
+                            fontSize: { xs: '1.2rem', sm: '1.3rem' },
                             lineHeight: 1.2, textOverflow: 'clip'
                         }
                     }} />
-                <CardActions sx={{ paddingInline: { xs: 1.2, sm: 2 }, paddingBlock: { xs: 1.2, sm: 2 } }}>
+                <CardActions sx={{ paddingInline: 1, paddingTop: 0 }}>
                     <Button variant="contained" onClick={handleLearnMore}
-                        loadingPosition="start" startIcon={<PlayArrowIcon />}
-                        sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4.4 }}>
+                        loadingPosition="start" size="small"
+                        sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4 }}>
                         Learn More</Button>
                 </CardActions>
             </Card>

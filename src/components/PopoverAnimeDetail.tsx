@@ -1,9 +1,9 @@
 import { Box, Popover, Stack, Typography } from "@mui/material";
-import { searchAnimeType } from "../Utility/type";
+import { animeType } from "../Utility/type";
 import StarIcon from '@mui/icons-material/Star';
 
 interface props {
-    data: searchAnimeType,
+    data: animeType,
     open: boolean,
     anchorEl: HTMLElement | null,
     handleClose: () => void

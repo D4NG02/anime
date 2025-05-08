@@ -6,13 +6,13 @@ import {
     Typography
 } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { searchAnimeType } from "../../Utility/type";
+import { animeType } from "../../Utility/type";
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
 const PopoverAnimeDetail = lazy(() => import('../PopoverAnimeDetail'));
 
 interface props {
-    data: searchAnimeType
+    data: animeType
 }
 
 export default function CardSearch({ data }: props) {
@@ -41,17 +41,20 @@ export default function CardSearch({ data }: props) {
                 color: 'white',
                 bgcolor: theme.palette.secondary.light,
                 display: 'grid', alignItems: 'center',
-                gridTemplateRows: 'auto 80px max-content max-content',
+                gridTemplateRows: 'auto max-content max-content max-content',
                 border: open ? `1px solid ${theme.palette.primary.light}` : '1px solid transparent'
             })}>
                 <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}
                     onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} />
-                <CardHeader title={data.title.slice(0, 54)}
+                <CardHeader title={data.title}
                     sx={{
                         overflowY: 'clip', paddingInline: { xs: 1.2, sm: 2 },
                         '& .MuiTypography-root': {
                             fontSize: { xs: '1.15rem', sm: '1.3rem' },
-                            lineHeight: 1.2, textOverflow: 'clip'
+                            lineHeight: 1.2, textOverflow: 'ellipsis',
+                            width: '230px',
+                            whiteSpace: 'nowrap',
+                            overflowX: 'clip'
                         }
                     }} />
                 <CardContent sx={{
@@ -78,9 +81,9 @@ export default function CardSearch({ data }: props) {
                     }
                 </CardContent>
                 <CardActions sx={{ paddingInline: { xs: 1.2, sm: 2 }, paddingBlock: { xs: 1.2, sm: 2 } }}>
-                    <Button variant="contained" onClick={handleLearnMore}
+                    <Button variant="contained" size="small" onClick={handleLearnMore}
                         startIcon={<PlayArrowIcon />}
-                        sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4.4 }}>
+                        sx={{ fontFamily: 'Pixelify Sans', borderRadius: 4 }}>
                         Learn More</Button>
                 </CardActions>
             </Card>

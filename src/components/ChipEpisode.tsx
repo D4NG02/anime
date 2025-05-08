@@ -1,7 +1,7 @@
 import { Chip } from "@mui/material";
 
 interface props {
-    text: string
+    text: number
 }
 
 export default function ChipEpisode({ text }: props) {
