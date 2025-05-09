@@ -9,7 +9,8 @@ export const ApiGetAnime = (search: string, stateSearch: string, page: number, l
                 page: stateSearch !== search ? 1 : page,
                 limit: limit,
                 order_by: 'title',
-                sort: 'asc'
+                sort: 'asc',
+                sfw: true
             },
         })
         .then(function (response) {
