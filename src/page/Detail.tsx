@@ -24,8 +24,7 @@ export default function Detail() {
                 gridTemplateColumns: { xs: 'auto', lg: 'auto 280px' }
             })}>
                 <Box sx={{
-                    display: 'grid',
-                    gap: { xs: 2, md: 3 },
+                    display: 'grid', gap: { xs: 2, md: 3 },
                     justifyItems: { xs: 'center', sm: 'unset' },
                     gridTemplateRows: { xs: '340px auto', sm: 'auto', md: 'auto' },
                     gridTemplateColumns: { xs: 'auto', sm: '180px auto', md: '210px auto' }

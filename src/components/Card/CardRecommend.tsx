@@ -38,23 +38,19 @@ export default function CardRecommend({ entry }: props) {
     return (
         <>
             <Card sx={(theme) => ({
-                color: 'white',
-                bgcolor: theme.palette.secondary.light,
-                display: 'grid', alignItems: 'center',
-                gridTemplateRows: '1fr max-content max-content',
+                color: 'white', bgcolor: theme.palette.secondary.light,
                 border: '1px solid transparent',
                 ':hover': { border: `1px solid ${theme.palette.primary.light}` }
             })}>
-                <CardMedia component="img" image={entry.images.webp.image_url} alt={entry.title} />
-                <CardHeader slotProps={{ title: { component: 'h2' } }} title={
-                    entry.title.slice(31, 35) !== '' ?
-                        entry.title.slice(0, 30) + '...' : entry.title.slice(0, 30)
-                }
+                <CardMedia component="img" image={entry.images.webp.image_url} alt={entry.title}
+                    sx={{ height: { xs: 280, sm: 320 }, objectFit: 'contain' }} />
+                <CardHeader slotProps={{ title: { component: 'h2' } }} title={entry.title}
                     sx={{
-                        overflowY: 'clip', paddingInline: 1,
+                        display: 'block', paddingInline: 1,
                         '& .MuiTypography-root': {
                             fontSize: { xs: '1.2rem', sm: '1.3rem' },
-                            lineHeight: 1.2, textOverflow: 'clip'
+                            lineHeight: 1.2,
+                            whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
                         }
                     }} />
                 <CardActions sx={{ paddingInline: 1, paddingTop: 0 }}>

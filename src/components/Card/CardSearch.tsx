@@ -38,23 +38,19 @@ export default function CardSearch({ data }: props) {
     return (
         <>
             <Card sx={(theme) => ({
-                color: 'white',
-                bgcolor: theme.palette.secondary.light,
-                display: 'grid', alignItems: 'center',
-                gridTemplateRows: 'auto max-content max-content max-content',
+                color: 'white', bgcolor: theme.palette.secondary.light,
                 border: open ? `1px solid ${theme.palette.primary.light}` : '1px solid transparent'
             })}>
                 <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}
-                    onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose} />
-                <CardHeader title={data.title}
+                    onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}
+                    sx={{ height: { xs: 280, sm: 320 }, objectFit: 'contain' }} />
+                <CardHeader title={data.title} slotProps={{title: {component: 'h2'}}}
                     sx={{
-                        overflowY: 'clip', paddingInline: { xs: 1.2, sm: 2 },
+                        display: 'block', paddingInline: { xs: 1.2, sm: 2 },
                         '& .MuiTypography-root': {
                             fontSize: { xs: '1.15rem', sm: '1.3rem' },
-                            lineHeight: 1.2, textOverflow: 'ellipsis',
-                            width: '230px',
-                            whiteSpace: 'nowrap',
-                            overflowX: 'clip'
+                            lineHeight: 1.2,
+                            whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
                         }
                     }} />
                 <CardContent sx={{

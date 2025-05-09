@@ -6,7 +6,8 @@ export const ApiGetTopAnime = (filter: "airing" | "upcoming" | "bypopularity" | 
             params: {
                 page: 1,
                 limit: 12,
-                filter: filter
+                filter: filter,
+                sfw: true
             },
         })
         .then(function (response) {
