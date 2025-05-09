@@ -31,7 +31,7 @@ export default function CardPopular({ data }: props) {
             color: 'white', paddingBlock: 2, paddingInline: 3,
             bgcolor: 'transparent', boxShadow: 'unset',
             display: 'grid', alignItems: 'center',
-            gridTemplateColumns: { xs: '54px auto max-content', sm: '54px calc(100% - 54px - 36px) max-content' },
+            gridTemplateColumns: '54px calc(100% - 54px - 36px) max-content'
         }}>
             <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}
                 sx={{ borderRadius: 2 }} />

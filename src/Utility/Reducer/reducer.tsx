@@ -17,7 +17,7 @@ export interface actionType { type: string, payload: any }
 export const state: stateType = {
     search: '',
     page: 1,
-    itemPerPage: 12,
+    itemPerPage: 15,
     detail: {
         mal_id: 0,
         url: '',

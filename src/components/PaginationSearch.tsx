@@ -16,9 +16,10 @@ export default function PaginationSearch() {
 
     return (
         <Box component='section' sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-            <Pagination count={state.pagination.items.count} page={state.page} onChange={handleChangePage}
+            <Pagination count={state.pagination.items.count} page={state.page} defaultPage={1}
                 boundaryCount={1} showFirstButton showLastButton
                 color='primary' variant='outlined'
+                onChange={handleChangePage}
                 sx={(theme) => ({
                     '& .MuiPaginationItem-root:not(.Mui-selected):not(.MuiPaginationItem-ellipsis)': {
                         color: theme.palette.secondary.contrastText,
