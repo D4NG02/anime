@@ -8,7 +8,7 @@ export default function Popular() {
     const { state, dispatch } = useStateProvider()
 
     useEffect(() => {
-        ApiGetTopAnime("favorite", (data) => {
+        state.popular.length === 0 && ApiGetTopAnime("favorite", (data) => {
             dispatch({ type: reducerCases.SET_POPULAR, payload: data })
         })
     }, [])

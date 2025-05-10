@@ -1,8 +1,8 @@
 import { ChangeEvent } from "react";
 import { Box, Pagination } from "@mui/material";
-import { useStateProvider } from "../Utility/Reducer/StateProvider";
-import { reducerCases } from "../Utility/Reducer/Constant";
-import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
+import { useStateProvider } from "../../Utility/Reducer/StateProvider";
+import { reducerCases } from "../../Utility/Reducer/Constant";
+import { ApiGetAnime } from "../../Utility/Api/ApiGetAnime";
 
 export default function PaginationSearch() {
     const { state, dispatch } = useStateProvider()

@@ -1,5 +1,5 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import ChipGenre from "./ChipGenre";
+import ChipGenre from "./Chip/ChipGenre";
 
 interface props {
     genres: { name: string }[]

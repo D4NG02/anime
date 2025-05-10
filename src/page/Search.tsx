@@ -3,8 +3,8 @@ import { Box, Container, Typography } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { animeType } from "../Utility/type";
 import Header from "../containers/Header";
-const PaginationSearch = lazy(() => import('../components/PaginationSearch'));
-const SkeletonCardAnime = lazy(() => import('../components/SkeletonCardAnime'));
+const PaginationSearch = lazy(() => import('../components/Pagination/PaginationSearch'));
+const SkeletonCardAnime = lazy(() => import('../components/Skeleton/SkeletonCardAnime'));
 const CardSearch = lazy(() => {
     return Promise.all([
         import("../components/Card/CardSearch"),

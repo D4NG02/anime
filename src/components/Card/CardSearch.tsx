@@ -9,7 +9,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { animeType } from "../../Utility/type";
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
-const PopoverAnimeDetail = lazy(() => import('../PopoverAnimeDetail'));
+const PopoverAnimeDetail = lazy(() => import('../Popover/PopoverAnimeDetail'));
 
 interface props {
     data: animeType

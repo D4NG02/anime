@@ -1,5 +1,5 @@
 import { Box, Popover, Stack, Typography } from "@mui/material";
-import { animeType } from "../Utility/type";
+import { animeType } from "../../Utility/type";
 import StarIcon from '@mui/icons-material/Star';
 
 interface props {
