@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Box, Button, Chip, Stack, Typography } from "@mui/material";
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
@@ -5,6 +6,8 @@ import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
+import { reducerCases } from '../Utility/Reducer/Constant';
+import { animeType } from '../Utility/type';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -12,7 +15,13 @@ import 'swiper/css/navigation';
 import { Pagination, Navigation, EffectCreative, Autoplay } from 'swiper/modules';
 
 export default function PresenterTopAiring() {
-    const { state } = useStateProvider()
+    let navigate = useNavigate();
+    const { state, dispatch } = useStateProvider()
+
+    const handleLearnMore = (data: animeType) => {
+        dispatch({ type: reducerCases.SET_DETAIL, payload: data })
+        navigate('/detail' + data.url.split(String(data.mal_id))[1]);
+    }
 
     return (
         <Box component='section'
@@ -111,7 +120,8 @@ export default function PresenterTopAiring() {
                                         display: { xs: 'none', md: '-webkit-box' }
                                     }}>{airing.synopsis}</Typography>
                                     <Button variant="contained" endIcon={<NavigateNextRoundedIcon />}
-                                        sx={{ borderRadius: 4.4, textTransform: 'capitalize' }}>Detail</Button>
+                                        sx={{ borderRadius: 4.4, textTransform: 'capitalize' }}
+                                        onClick={() => handleLearnMore(airing)}>Detail</Button>
                                 </Box>
                             </Box>
                         </SwiperSlide>

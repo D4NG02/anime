@@ -15,10 +15,7 @@ export interface stateType {
 }
 export interface actionType { type: string, payload: any }
 
-export const state: stateType = {
-    search: '',
-    page: 1,
-    itemPerPage: 15,
+const defaultState: {detail: animeType} = {
     detail: {
         mal_id: 0,
         url: '',
@@ -43,7 +40,13 @@ export const state: stateType = {
         genres: [],
         producers: [],
         studios: []
-    },
+    }
+}
+export const state: stateType = {
+    search: '',
+    page: 1,
+    itemPerPage: 15,
+    detail: defaultState.detail,
     pagination: { items: { count: 1 } },
     searchAnime: [],
     recommend: [],
@@ -82,7 +85,7 @@ const reducer = (state: stateType, action: actionType) => {
             return { ...state, searchAnime: [], pagination: { items: { count: 1 } } }
 
         case reducerCases.RESET_DETAIL:
-            return { ...state, detail: state.detail }
+            return { ...state, detail: defaultState.detail }
 
         case reducerCases.RESET_RECOMMEND:
             return { ...state, recommend: [] }
