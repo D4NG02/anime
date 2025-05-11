@@ -6,7 +6,8 @@ export interface animeType {
             image_url: string
         },
         webp: {
-            image_url: string
+            image_url: string,
+            large_image_url: string
         }
     },
     title: string,

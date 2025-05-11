@@ -11,6 +11,7 @@ export interface stateType {
     recommend: any[],
     historyID: any[],
     popular: animeType[],
+    topAiring: animeType[],
 }
 export interface actionType { type: string, payload: any }
 
@@ -23,7 +24,7 @@ export const state: stateType = {
         url: '',
         images: {
             jpg: { image_url: '' },
-            webp: { image_url: '' }
+            webp: { image_url: '', large_image_url: '' }
         },
         title: '',
         title_japanese: '',
@@ -39,7 +40,7 @@ export const state: stateType = {
         year: 0,
         aired: { from: '', to: '' },
         status: '',
-        genres: [], 
+        genres: [],
         producers: [],
         studios: []
     },
@@ -48,6 +49,7 @@ export const state: stateType = {
     recommend: [],
     historyID: [],
     popular: [],
+    topAiring: [],
 }
 
 const reducer = (state: stateType, action: actionType) => {
@@ -72,6 +74,12 @@ const reducer = (state: stateType, action: actionType) => {
 
         case reducerCases.SET_POPULAR:
             return { ...state, popular: action.payload.data }
+
+        case reducerCases.SET_TOP_AIRING:
+            return { ...state, topAiring: action.payload.data }
+
+        case reducerCases.RESET_ANIME_LIST:
+            return { ...state, searchAnime: [], pagination: { items: { count: 1 } } }
 
         case reducerCases.RESET_DETAIL:
             return { ...state, detail: state.detail }
