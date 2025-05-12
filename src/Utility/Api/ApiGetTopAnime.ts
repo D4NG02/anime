@@ -9,16 +9,14 @@ export const ApiGetTopAnime = (
 
     axios(`https://api.jikan.moe/v4/top/anime`, {
         params: {
+            filter: filter,
             page: page,
             limit: limit,
-            filter: filter,
             sfw: true
         },
     })
         .then(function (response) {
-            if (response.status === 200) {
-                filter === 'bypopularity' ? setData(response) : setData(response.data)
-            }
+            response.status === 200 && setData(response.data)
         })
         .catch(function (error) {
             ErrorJikanApi(error)

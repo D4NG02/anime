@@ -69,7 +69,7 @@ export default function PresenterTopAiring() {
                 creativeEffect={{ prev: { translate: [0, 0, -1000] }, next: { translate: ['100%', 0, 0] } }}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}
                 modules={[Pagination, Navigation, EffectCreative, Autoplay]}>
-                {state.topAiring.map((airing, idx: number) => {
+                {state.topAiring.data.map((airing, idx: number) => {
                     return (
                         <SwiperSlide key={idx}>
                             <Box sx={{

@@ -1,6 +1,7 @@
 import { animeType } from "../type"
 import { reducerCases } from "./Constant"
 
+interface paginationType { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
 export interface stateType {
     search: string,
     detail: animeType,
@@ -8,18 +9,24 @@ export interface stateType {
     historyID: any[],
     searchAnime: {
         data: animeType[],
-        pagination: { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
+        pagination: paginationType
     },
     schedules: {
         data: animeType[],
-        pagination: { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
+        pagination: paginationType
     },
     topPopular: {
         data: animeType[],
-        pagination: { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
+        pagination: paginationType
     },
-    topFavourite: animeType[],
-    topAiring: animeType[],
+    topFavourite: {
+        data: animeType[],
+        pagination: paginationType
+    },
+    topAiring: {
+        data: animeType[],
+        pagination: paginationType
+    },
 }
 export interface actionType { type: string, payload: any }
 
@@ -56,25 +63,37 @@ const defaultState: { detail: animeType } = {
         studios: []
     }
 }
+
+const defaultPagination: paginationType = {
+    current_page: 1, has_next_page: true,
+    items: { count: 1, per_page: 10 }
+}
+
 export const state: stateType = {
     search: '',
     detail: defaultState.detail,
-    recommend: [],
     historyID: [],
+    recommend: [],
     searchAnime: {
         data: [],
-        pagination: { current_page: 1, has_next_page: true, items: { count: 1, per_page: 10 } }
+        pagination: defaultPagination
     },
     schedules: {
         data: [],
-        pagination: { current_page: 1, has_next_page: true, items: { count: 1, per_page: 10 } }
+        pagination: defaultPagination
     },
     topPopular: {
         data: [],
-        pagination: { current_page: 1, has_next_page: true, items: { count: 1, per_page: 10 } }
+        pagination: defaultPagination
     },
-    topFavourite: [],
-    topAiring: [],
+    topFavourite: {
+        data: [],
+        pagination: defaultPagination
+    },
+    topAiring: {
+        data: [],
+        pagination: defaultPagination
+    },
 }
 
 const reducer = (state: stateType, action: actionType) => {
@@ -98,16 +117,16 @@ const reducer = (state: stateType, action: actionType) => {
             return { ...state, schedules: action.payload }
 
         case reducerCases.SET_TOP_POPULOR:
-            return { ...state, topPopular: action.payload.data }
+            return { ...state, topPopular: action.payload }
 
         case reducerCases.SET_TOP_FAVOURITE:
-            return { ...state, topFavourite: action.payload.data }
+            return { ...state, topFavourite: action.payload }
 
         case reducerCases.SET_TOP_AIRING:
-            return { ...state, topAiring: action.payload.data }
+            return { ...state, topAiring: action.payload }
 
         case reducerCases.RESET_ANIME_LIST:
-            return { ...state, searchAnime: [], pagination: { items: { count: 1 } } }
+            return { ...state, searchAnime: { data: [], pagination: defaultPagination } }
 
         case reducerCases.RESET_DETAIL:
             return { ...state, detail: defaultState.detail }

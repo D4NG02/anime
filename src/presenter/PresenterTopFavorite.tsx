@@ -16,11 +16,11 @@ export default function PresenterTopFavorite() {
                 display: { sm: 'grid' },
                 gridTemplateColumns: { sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }
             })}>
-                {state.topFavourite.map((fav: animeType, idx: number) => {
+                {state.topFavourite.data.map((fav: animeType, idx: number) => {
                     return (
                         <Fragment key={idx}>
                             <CardFavourite key={idx} data={fav} />
-                            {state.topFavourite.length - 1 !== idx &&
+                            {state.topFavourite.data.length - 1 !== idx &&
                                 <Divider orientation='horizontal' variant="middle"
                                     sx={(theme) => ({
                                         borderColor: theme.palette.primary.light,

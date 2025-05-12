@@ -5,7 +5,7 @@ export default function Week({ selectedDay, handleClick }: { selectedDay: string
 
     return (
         <Box sx={(theme) => ({
-            overflowX: 'auto', paddingBlock: 2, gap: 2,
+            overflowX: 'auto', paddingBlockStart: 1.4, paddingBlockEnd: 2, gap: 2,
             display: 'grid', gridTemplateColumns: 'repeat(7, auto)',
             '& .MuiButton-root': {
                 minWidth: 92,

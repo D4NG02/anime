@@ -8,14 +8,14 @@ export default function TopAiring() {
     const { state, dispatch } = useStateProvider()
 
     useEffect(() => {
-        state.topAiring.length === 0 && ApiGetTopAnime(9, 1, 'airing', (data) => {
+        state.topAiring.data.length === 0 && ApiGetTopAnime(9, 1, 'airing', (data) => {
             dispatch({ type: reducerCases.SET_TOP_AIRING, payload: data })
         })
     }, [])
 
     return (
         <>
-            <PresenterTopAiring />
+            {state.topAiring.data.length > 0 && <PresenterTopAiring />}
         </>
     );
 }

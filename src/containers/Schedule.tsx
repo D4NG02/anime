@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
-import { useMediaQuery, useTheme } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
 import { ApiGetSchedules } from "../Utility/Api/ApiGetSchedule";
 import PresenterSchedule from "../presenter/PresenterSchedule";
 
-interface type {
-    filter: "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday"
-}
-
 export default function Schedule() {
-    const theme = useTheme()
-    const [filterDay, setFilterDay] = useState<type['filter']>('monday')
+    const [todayDay, setTodayDay] = useState<string>('monday')
     const { state, dispatch } = useStateProvider()
-    const smBreakpoint = useMediaQuery(theme.breakpoints.up('sm'));
-    const mdBreakpoint = useMediaQuery(theme.breakpoints.up('md'));
 
     useEffect(() => {
+        const today = new Date()
+        const day = today.getDay()
+        const week = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+        const filterDay = week[day]
         const timeoutId = setTimeout(() => {
-            const limit = mdBreakpoint ? 5 : smBreakpoint ? 4 : 3
+            setTodayDay(filterDay)
             state.schedules.data.length === 0 && ApiGetSchedules(filterDay, (data) => {
                 dispatch({ type: reducerCases.SET_SCHEDULE, payload: data })
             })
@@ -28,7 +24,7 @@ export default function Schedule() {
 
     return (
         <>
-            {state.schedules.data.length > 0 && <PresenterSchedule />}
+            {state.schedules.data.length > 0 && <PresenterSchedule todayDay={todayDay} />}
         </>
     );
 }

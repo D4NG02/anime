@@ -10,20 +10,25 @@ interface errorType {
 
 export const ErrorJikanApi = (error: errorType) => {
     if (!error.response) {
-        error.message === 'Network Error' && console.log('['+ error.message +'] Not connect to the internet')
-        error.message !== 'Network Error' && console.log('['+ error.message +']')
+        error.message === 'Network Error' && console.log('[' + error.message + '] Not connect to the internet')
+        error.message !== 'Network Error' && console.log('[' + error.message + ']')
     } else {
         switch (error.response.status) {
             case 400:
-                console.log(`[Error: ${error.response}] Required parameters were not supplied.`)
+                console.log(`[Error: ${error.response.status}] Required parameters were not supplied.`)
                 break;
 
             case 404:
-                console.log(`[Error: ${error.response}] Parameter value undefined`)
+                console.log(`[Error: ${error.response.status}] Parameter value undefined`)
+                break;
+
+            case 429:
+                console.log(`[Error: ${error.response.data.status}] ${error.response.data.message}`)
                 break;
 
             default:
-                console.log('Error', error.message);
+                console.log(`[Error: ${error.response.status}] `, error.response.statusText);
+                console.log(`[Error: ${error.response.status}] `, error.data)
                 break;
         }
     }
