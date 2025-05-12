@@ -19,6 +19,7 @@ export interface animeType {
     rating: string,
     score: number,
     episodes: number,
+    popularity: number,
     synopsis: string,
     season : string,
     year : number,

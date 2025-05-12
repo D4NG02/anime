@@ -37,11 +37,11 @@ export default function PresenterTopAiring() {
                         color: theme.palette.primary.contrastText,
                         bgcolor: theme.palette.primary.main,
                     },
-                    '::after': { fontSize: '1rem', fontWeight: 700, padding: { xs: 1, sm: 2 } }
+                    '::after': { fontSize: '1rem', fontWeight: 700, padding: 1.4 }
                 },
                 '& .swiper-button-next': {
                     borderRadius: 1, display: { xs: 'none', md: 'flex' },
-                    top: 'unset', bottom: 74, left: 'unset', right: 20,
+                    top: 'unset', bottom: 62, left: 'unset', right: 20,
                     width: 'max-content', height: 'max-content',
                     color: theme.palette.secondary.contrastText,
                     bgcolor: theme.palette.secondary.light,
@@ -49,7 +49,7 @@ export default function PresenterTopAiring() {
                         color: theme.palette.primary.contrastText,
                         bgcolor: theme.palette.primary.main,
                     },
-                    '::after': { fontSize: '1rem', fontWeight: 700, padding: { xs: 1, sm: 2 } }
+                    '::after': { fontSize: '1rem', fontWeight: 700, padding: 1.4 }
                 },
                 '& .swiper-pagination': {
                     width: 'max-content', height: '100%',
@@ -65,7 +65,7 @@ export default function PresenterTopAiring() {
                     }
                 }
             })}>
-            <Swiper spaceBetween={2} pagination={true} loop={true} navigation={true} effect={'creative'}
+            <Swiper spaceBetween={100} slidesPerView={1} slidesPerGroup={1} pagination={true} loop={true} navigation={true} effect={'creative'}
                 creativeEffect={{ prev: { translate: [0, 0, -1000] }, next: { translate: ['100%', 0, 0] } }}
                 autoplay={{ delay: 3000, disableOnInteraction: false }}
                 modules={[Pagination, Navigation, EffectCreative, Autoplay]}>
@@ -89,12 +89,12 @@ export default function PresenterTopAiring() {
                                 paddingLeft: 2, bgcolor: theme.palette.secondary.main
                             })}>
                                 <Box sx={{ width: { xs: '100%', md: '50%' }, marginBottom: 4 }}>
-                                    <Typography gutterBottom variant="h6" component='h6' color="primary"
+                                    <Typography gutterBottom variant="h6" component='h6' color="textPrimary"
                                         fontFamily='Pixelify Sans'
                                         sx={{
                                             fontSize: { xs: '0.8rem', sm: '1rem', md: '1.25rem' },
                                             marginBottom: { xs: '1em', sm: '0.6em', md: '0.35em' }
-                                        }}>{`#${idx + 1} Spotlight`}</Typography>
+                                        }}>{`#${idx + 1} Airing`}</Typography>
                                     <Typography gutterBottom variant="h2" component='h2'
                                         sx={{
                                             fontWeight: 700,

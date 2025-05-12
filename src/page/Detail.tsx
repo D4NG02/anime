@@ -1,16 +1,20 @@
 import { ScrollRestoration } from "react-router";
 import { Box, Container } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
+import Header from "../containers/Header";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
 import Recommend from '../containers/Recommend';
-import Popular from "../containers/Popular";
+import TopFavorite from "../containers/TopFavorite";
 
 export default function Detail() {
     const { state } = useStateProvider()
 
     return (
-        <Container sx={{ color: 'whitesmoke', paddingBlock: 4 }}>
+        <Container maxWidth='lg' sx={{
+            color: 'whitesmoke',
+            paddingTop: { xs: 9.2, sm: 12 }, paddingBottom: 3
+        }}>
             <ScrollRestoration
                 getKey={(location) => {
                     return location.key;
@@ -44,7 +48,7 @@ export default function Detail() {
             </Box>}
 
             <Recommend />
-            <Popular />
+            <TopFavorite />
         </Container>
     );
 }

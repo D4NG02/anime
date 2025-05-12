@@ -4,19 +4,20 @@ import { StateProvider } from './Utility/Reducer/StateProvider';
 import Home from "./page/Home";
 import Search from "./page/Search";
 import Detail from "./page/Detail";
+import Header from "./containers/Header";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />
+    element: <><Header /><Home /></>
   },
   {
     path: "/search",
-    element: <Search />
+    element: <><Header /><Search /></>
   },
   {
     path: "/detail/:title",
-    element: <Detail />
+    element: <><Header /><Detail /></>
   },
 ]);
 

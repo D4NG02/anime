@@ -8,9 +8,12 @@ export default function TopAiring() {
     const { state, dispatch } = useStateProvider()
 
     useEffect(() => {
-        state.popular.length === 0 && ApiGetTopAnime('airing', (data) => {
-            dispatch({ type: reducerCases.SET_TOP_AIRING, payload: data })
-        })
+        const timeoutId = setTimeout(() => {
+            state.topAiring.length === 0 && ApiGetTopAnime(9, 1, 'airing', (data) => {
+                dispatch({ type: reducerCases.SET_TOP_AIRING, payload: data })
+            })
+        }, 1000);
+        return () => clearTimeout(timeoutId);
     }, [])
 
     return (

@@ -49,8 +49,10 @@ export default function CardSearch({ data }: props) {
                         display: 'block', paddingInline: { xs: 1.2, sm: 2 },
                         '& .MuiTypography-root': {
                             fontSize: { xs: '1.15rem', sm: '1.3rem' },
-                            lineHeight: 1.2,
-                            whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
+                            WebkitLineClamp: '1',
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            display: '-webkit-box' 
                         }
                     }} />
                 <CardContent sx={{

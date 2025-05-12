@@ -10,12 +10,16 @@ export interface stateType {
     page: number,
     recommend: any[],
     historyID: any[],
-    popular: animeType[],
+    topPopular: {
+        data: animeType[],
+        pagination: { current_page: number, has_next_page: boolean, items: { count: number } }
+    },
+    topFavourite: animeType[],
     topAiring: animeType[],
 }
 export interface actionType { type: string, payload: any }
 
-const defaultState: {detail: animeType} = {
+const defaultState: { detail: animeType } = {
     detail: {
         mal_id: 0,
         url: '',
@@ -32,6 +36,7 @@ const defaultState: {detail: animeType} = {
         rating: '',
         score: 0,
         episodes: 0,
+        popularity: 0,
         synopsis: '',
         season: '',
         year: 0,
@@ -51,7 +56,11 @@ export const state: stateType = {
     searchAnime: [],
     recommend: [],
     historyID: [],
-    popular: [],
+    topPopular: {
+        data: [],
+        pagination: { current_page: 1, has_next_page: true, items: { count: 1 } }
+    },
+    topFavourite: [],
     topAiring: [],
 }
 
@@ -75,8 +84,11 @@ const reducer = (state: stateType, action: actionType) => {
         case reducerCases.SET_HISTORY_ID:
             return { ...state, historyID: action.payload }
 
-        case reducerCases.SET_POPULAR:
-            return { ...state, popular: action.payload.data }
+        case reducerCases.TOP_POPULOR:
+            return { ...state, topPopular: action.payload.data }
+
+        case reducerCases.TOP_FAVOURITE:
+            return { ...state, topFavourite: action.payload.data }
 
         case reducerCases.SET_TOP_AIRING:
             return { ...state, topAiring: action.payload.data }
