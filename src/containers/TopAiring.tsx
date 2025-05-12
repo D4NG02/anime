@@ -2,20 +2,20 @@ import { useEffect } from "react";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { ApiGetTopAnime } from "../Utility/Api/ApiGetTopAnime";
 import { reducerCases } from "../Utility/Reducer/Constant";
-import PresenterPopular from "../presenter/PresenterPopular";
+import PresenterTopAiring from "../presenter/PresenterTopAiring";
 
-export default function Popular() {
+export default function TopAiring() {
     const { state, dispatch } = useStateProvider()
 
     useEffect(() => {
-        ApiGetTopAnime("favorite", (data) => {
-            dispatch({ type: reducerCases.SET_POPULAR, payload: data })
+        state.topAiring.data.length === 0 && ApiGetTopAnime(9, 1, 'airing', (data) => {
+            dispatch({ type: reducerCases.SET_TOP_AIRING, payload: data })
         })
     }, [])
 
     return (
         <>
-            {state.popular && state.popular.length > 0 && <PresenterPopular />}
+            {state.topAiring.data.length > 0 && <PresenterTopAiring />}
         </>
     );
 }

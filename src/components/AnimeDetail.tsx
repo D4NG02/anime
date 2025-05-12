@@ -5,9 +5,9 @@ import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
 import { ApiGetAnimeById } from "../Utility/Api/ApiGetAnimeById";
 import { ApiGetRecommendById } from "../Utility/Api/ApiGetRecommendById";
-import ChipRating from "./ChipRating";
-import ChipType from "./ChipType";
-import ChipEpisode from "./ChipEpisode";
+import ChipRating from "./Chip/ChipRating";
+import ChipType from "./Chip/ChipType";
+import ChipEpisode from "./Chip/ChipEpisode";
 
 export default function AnimeDetail() {
     let navigate = useNavigate();

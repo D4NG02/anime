@@ -1,22 +1,22 @@
 import { ChangeEvent } from "react";
 import { Box, Pagination } from "@mui/material";
-import { useStateProvider } from "../Utility/Reducer/StateProvider";
-import { reducerCases } from "../Utility/Reducer/Constant";
-import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
+import { useStateProvider } from "../../Utility/Reducer/StateProvider";
+import { reducerCases } from "../../Utility/Reducer/Constant";
+import { ApiGetAnime } from "../../Utility/Api/ApiGetAnime";
 
 export default function PaginationSearch() {
     const { state, dispatch } = useStateProvider()
 
     const handleChangePage = async (_: ChangeEvent<unknown>, value: number) => {
-        dispatch({ type: reducerCases.SET_PAGE, payload: value })
-        ApiGetAnime(state.search, state.search, value, state.itemPerPage, (data) => {
+        ApiGetAnime(state.search, state.search, value, 15, (data) => {
             dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
         })
     };
 
     return (
         <Box component='section' sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-            <Pagination count={state.pagination.items.count} page={state.page} defaultPage={1}
+            <Pagination count={state.searchAnime.pagination.items.count}
+                page={state.searchAnime.pagination.current_page} defaultPage={1}
                 boundaryCount={1} showFirstButton showLastButton
                 color='primary' variant='outlined'
                 onChange={handleChangePage}

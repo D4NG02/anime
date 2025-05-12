@@ -39,7 +39,7 @@ export default function CardRecommend({ entry }: props) {
         <>
             <Card sx={(theme) => ({
                 color: 'white', bgcolor: theme.palette.secondary.light,
-                border: '1px solid transparent',
+                border: `1px solid ${theme.palette.secondary.main}`,
                 ':hover': { border: `1px solid ${theme.palette.primary.light}` }
             })}>
                 <CardMedia component="img" image={entry.images.webp.image_url} alt={entry.title}
@@ -49,8 +49,10 @@ export default function CardRecommend({ entry }: props) {
                         display: 'block', paddingInline: 1,
                         '& .MuiTypography-root': {
                             fontSize: { xs: '1.2rem', sm: '1.3rem' },
-                            lineHeight: 1.2,
-                            whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
+                            WebkitLineClamp: '1',
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            display: '-webkit-box' 
                         }
                     }} />
                 <CardActions sx={{ paddingInline: 1, paddingTop: 0 }}>

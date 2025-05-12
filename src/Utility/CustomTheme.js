@@ -5,6 +5,10 @@ export const CustomTheme = createTheme({
         light: true
     },
     palette: {
+        text: {
+            primary:'#84fcf3',
+            secondary:'#4b535b',
+        },
         primary: {
             // blue
             light: '#84fcf3',

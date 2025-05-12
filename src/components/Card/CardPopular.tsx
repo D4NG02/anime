@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import {
     Box, Card, CardActions, CardContent,
+    CardHeader,
     CardMedia, IconButton, Typography
 } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -8,67 +9,56 @@ import { animeType } from "../../Utility/type";
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
 
-interface props {
-    data: animeType
-}
-
-export default function CardPopular({ data }: props) {
+export default function CardPopular({ data }: { data: animeType }) {
     let navigate = useNavigate();
     const { state, dispatch } = useStateProvider()
 
     const handleLearnMore = () => {
-        dispatch({
-            type: reducerCases.SET_HISTORY_ID,
-            payload: state.historyID.length > 0 ?
-                [...state.historyID, state.detail.mal_id] : [state.detail.mal_id]
-        })
         dispatch({ type: reducerCases.SET_DETAIL, payload: data })
         navigate('/detail' + data.url.split(String(data.mal_id))[1]);
     }
 
     return (
-        <Card sx={{
-            color: 'white', paddingBlock: 2, paddingInline: 3,
-            bgcolor: 'transparent', boxShadow: 'unset',
-            display: 'grid', alignItems: 'center',
-            gridTemplateColumns: '54px calc(100% - 54px - 36px) max-content'
-        }}>
+        <Card component='button' onClick={handleLearnMore}
+            sx={{
+                color: 'white', position: 'relative',
+                bgcolor: 'transparent', boxShadow: 'unset',
+                padding: 'unset', border: 'unset', borderRadius: 'unset',
+                display: { xs: 'block', sm: 'grid' }, alignItems: 'center',
+                gridTemplateColumns: 'max-content auto', height: {xs: 210, sm: 250, md: 300},
+            }}>
+            <CardHeader title={data.title} subheader={String(data.popularity).padStart(2, '0')}
+                slotProps={{
+                    title: { variant: 'h6', component: 'p' },
+                    subheader: { component: 'p' }
+                }}
+                sx={(theme) => ({
+                    padding: 'unset', display: 'block',
+                    height: { sm: '100%' },
+                    bottom: { xs: 0, sm: 'unset' },
+                    position: { xs: 'absolute', sm: 'unset' },
+                    '& .MuiCardHeader-content': {
+                        height: 'inherit', gap: 1, justifyContent: 'flex-end',
+                        display: 'flex', flexDirection: 'column'
+                    },
+                    '& .MuiTypography-h6': {
+                        display: { xs: 'none', sm: '-webkit-box' },
+                        WebkitLineClamp: '1',
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOrientation: 'upright',
+                        writingMode: 'sideways-lr',
+                    },
+            '& .MuiTypography-body1': {
+                textAlign: 'center',
+            paddingBlock: {xs: 0.8, sm: 'unset' },
+            paddingInline: {xs: 1.2, sm: 'unset' },
+            color: theme.palette.text.primary,
+            bgcolor: {xs: theme.palette.secondary.main, sm: 'transparent' }
+                    }
+                })} />
             <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}
-                sx={{ borderRadius: 2 }} />
-            <CardContent sx={{ ':last-child': { paddingBottom: 2 } }}>
-                <Typography variant="h6" component='h2'
-                    sx={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                    {data.title}
-                </Typography>
-                <Box sx={{
-                    display: 'flex', flexDirection: 'row', gap: 1, alignItems: 'center',
-                    paddingTop: 0.4
-                }}>
-                    <Typography variant="subtitle2">
-                        {data.type}
-                    </Typography>
-                    <Box sx={{ borderRadius: 0.75, height: 6, width: 6, color: 'transparent', bgcolor: 'gray' }}>dot</Box>
-                    <Typography variant="subtitle2">
-                        {data.duration !== 'Unknown' ? data.duration.split(' ')[0] + 'm' : 'N/A'}
-                    </Typography>
-
-                    {data.rating && data.rating.includes('R') && <>
-                        <Box sx={{ borderRadius: 0.75, height: 6, width: 6, color: 'transparent', bgcolor: 'gray' }}>dot</Box>
-                        <Typography variant="subtitle2"
-                            sx={(theme) => ({
-                                bgcolor: theme.palette.error.main,
-                                padding: '0.08rem 0.4rem', borderRadius: 1.25
-                            })}
-                        >{data.rating.split(' - ')[0]}</Typography>
-                    </>}
-                </Box>
-            </CardContent>
-            <CardActions sx={{ padding: 'unset' }}>
-                <IconButton onClick={handleLearnMore} size="small" color="primary"
-                    sx={(theme) => ({ border: `1px solid ${theme.palette.primary.main}` })}>
-                    <PlayArrowIcon />
-                </IconButton>
-            </CardActions>
+                sx={{ height: '100%', width: '100%', objectFit: 'fill' }} />
         </Card>
     );
 }

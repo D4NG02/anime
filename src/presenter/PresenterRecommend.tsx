@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import CardRecommend from "../components/Card/CardRecommend";
 

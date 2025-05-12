@@ -4,13 +4,16 @@ import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
 import Recommend from '../containers/Recommend';
-import Popular from "../containers/Popular";
+import TopFavorite from "../containers/TopFavorite";
 
 export default function Detail() {
     const { state } = useStateProvider()
 
     return (
-        <Container sx={{ color: 'whitesmoke', paddingBlock: 4}}>
+        <Container maxWidth='lg' sx={{
+            color: 'whitesmoke',
+            paddingTop: { xs: 9.2, sm: 12 }, paddingBottom: 3
+        }}>
             <ScrollRestoration
                 getKey={(location) => {
                     return location.key;
@@ -19,29 +22,32 @@ export default function Detail() {
             {state.detail && <Box component='section' sx={(theme) => ({
                 padding: 2, borderRadius: 3,
                 bgcolor: theme.palette.secondary.light + '5f',
-                gap: { xs: 2, md: 3 }, display: 'grid',
-                gridTemplateRows: { xs: 'auto auto', lg: 'auto' },
-                gridTemplateColumns: { xs: 'auto', lg: 'auto 280px' }
             })}>
                 <Box sx={{
-                    display: 'grid', gap: { xs: 2, md: 3 },
-                    justifyItems: { xs: 'center', sm: 'unset' },
-                    gridTemplateRows: { xs: '340px auto', sm: 'auto', md: 'auto' },
-                    gridTemplateColumns: { xs: 'auto', sm: '180px auto', md: '210px auto' }
+                    gap: { xs: 2, md: 3 }, display: 'grid',
+                    gridTemplateRows: { xs: 'auto auto', lg: 'auto' },
+                    gridTemplateColumns: { xs: 'auto', lg: 'auto 280px' }
                 }}>
-                    <Box>
-                        <img src={state.detail.images.webp.image_url} alt={state.detail.title}
-                            style={{ width: '100%' }} />
+                    <Box sx={{
+                        display: 'grid', gap: { xs: 2, md: 3 },
+                        justifyItems: { xs: 'center', sm: 'unset' },
+                        gridTemplateRows: { xs: '340px auto', sm: 'auto', md: 'auto' },
+                        gridTemplateColumns: { xs: 'auto', sm: '180px auto', md: '210px auto' }
+                    }}>
+                        <Box>
+                            <img src={state.detail.images.webp.image_url} alt={state.detail.title}
+                                style={{ width: '100%' }} />
+                        </Box>
+
+                        <AnimeDetail />
                     </Box>
 
-                    <AnimeDetail />
+                    <AnimeInfo />
                 </Box>
-
-                <AnimeInfo />
             </Box>}
 
             <Recommend />
-            <Popular />
+            <TopFavorite />
         </Container>
     );
 }
