@@ -9,7 +9,7 @@ export default function TopFavorite() {
 
     useEffect(() => {
         state.topFavourite.length === 0 && ApiGetTopAnime(12, 1, "favorite", (data) => {
-            dispatch({ type: reducerCases.TOP_FAVOURITE, payload: data })
+            dispatch({ type: reducerCases.SET_TOP_FAVOURITE, payload: data })
         })
     }, [])
 

@@ -15,7 +15,7 @@ export default function TopPopular() {
         const timeoutId = setTimeout(() => {
             const limit = mdBreakpoint ? 5 : smBreakpoint ? 4 : 3
             state.topPopular.data.length === 0 && ApiGetTopAnime(limit, 1, 'bypopularity', (data) => {
-                dispatch({ type: reducerCases.TOP_POPULOR, payload: data })
+                dispatch({ type: reducerCases.SET_TOP_POPULOR, payload: data })
             })
         }, 2000);
         return () => clearTimeout(timeoutId);

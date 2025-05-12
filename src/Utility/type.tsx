@@ -11,8 +11,8 @@ export interface animeType {
         }
     },
     title: string,
-    title_japanese : string,
-    title_synonyms : string,
+    title_japanese: string,
+    title_synonyms: string,
     titles: { type: string, title: string }[],
     type: string,
     duration: string,
@@ -21,8 +21,13 @@ export interface animeType {
     episodes: number,
     popularity: number,
     synopsis: string,
-    season : string,
-    year : number,
+    season: string,
+    year: number,
+    broadcast: {
+        day: string,
+        time: string,
+        timezone: string
+    },
     aired: { from: string, to: string },
     status: string,
     genres: { name: string }[],

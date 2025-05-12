@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import TopAiring from "../containers/TopAiring";
 import TopPopular from "../containers/TopPopular";
+import Schedule from "../containers/Schedule";
 
 export default function Home() {
     return (
@@ -11,6 +12,7 @@ export default function Home() {
         }}>
             <TopAiring />
             <TopPopular />
+            <Schedule />
         </Container>
     );
 }

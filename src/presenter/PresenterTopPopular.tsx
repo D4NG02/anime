@@ -22,12 +22,12 @@ export default function PresenterTopPopular() {
 
     const handlePrev = () => {
         ApiGetTopAnime(limit, prevPage, 'bypopularity', (data) => {
-            dispatch({ type: reducerCases.TOP_POPULOR, payload: data })
+            dispatch({ type: reducerCases.SET_TOP_POPULOR, payload: data })
         })
     }
     const handleNext = () => {
         ApiGetTopAnime(limit, nextPage, 'bypopularity', (data) => {
-            dispatch({ type: reducerCases.TOP_POPULOR, payload: data })
+            dispatch({ type: reducerCases.SET_TOP_POPULOR, payload: data })
         })
     }
 
