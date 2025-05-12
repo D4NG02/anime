@@ -1,4 +1,4 @@
-import { lazy, useEffect } from "react";
+import { useEffect } from "react";
 import { reducerCases } from "../Utility/Reducer/Constant";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { ApiGetRecommendById } from "../Utility/Api/ApiGetRecommendById";

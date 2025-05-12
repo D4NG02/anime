@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState, ChangeEvent } from "react";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -6,6 +7,8 @@ import { reducerCases } from "../Utility/Reducer/Constant";
 import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
 
 export default function SearchForm() {
+    let { pathname } = useLocation()
+    let navigate = useNavigate();
     const { state, dispatch } = useStateProvider()
     const [find, setFind] = useState<string>(state.search)
 
@@ -15,12 +18,12 @@ export default function SearchForm() {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            state.search !== find && dispatch({ type: reducerCases.SET_PAGE, payload: 1 })
-            dispatch({ type: reducerCases.SET_SEARCH, payload: find })
-
-            ApiGetAnime(find, state.search, state.page, state.itemPerPage, (data) => {
+            pathname !== '/search' && state.search !== find && ApiGetAnime(find, state.search, 1, 15, (data) => {
                 dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
             })
+            dispatch({ type: reducerCases.SET_SEARCH, payload: find })
+            pathname !== '/search' && state.search !== find && navigate('/search');
+
         }, 250);
         return () => clearTimeout(timeoutId);
     }, [find]);

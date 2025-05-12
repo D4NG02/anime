@@ -1,9 +1,9 @@
 import { Box, Skeleton } from "@mui/material";
-import { useStateProvider } from "../Utility/Reducer/StateProvider";
+import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 
 export default function SkeletonCardAnime() {
     const { state } = useStateProvider()
-    const loading = Array.from(Array(state.itemPerPage).keys())
+    const loading = Array.from(Array(state.searchAnime.pagination.items.per_page).keys())
 
     return (
         <>

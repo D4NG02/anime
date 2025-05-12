@@ -9,7 +9,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { animeType } from "../../Utility/type";
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
-const PopoverAnimeDetail = lazy(() => import('../PopoverAnimeDetail'));
+const PopoverAnimeDetail = lazy(() => import('../Popover/PopoverAnimeDetail'));
 
 interface props {
     data: animeType
@@ -49,8 +49,10 @@ export default function CardSearch({ data }: props) {
                         display: 'block', paddingInline: { xs: 1.2, sm: 2 },
                         '& .MuiTypography-root': {
                             fontSize: { xs: '1.15rem', sm: '1.3rem' },
-                            lineHeight: 1.2,
-                            whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden'
+                            WebkitLineClamp: '1',
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            display: '-webkit-box' 
                         }
                     }} />
                 <CardContent sx={{

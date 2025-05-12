@@ -11,14 +11,14 @@ export default function Header() {
     const handleHome = () => {
         navigate('/');
         dispatch({ type: reducerCases.SET_SEARCH, payload: "" })
-        dispatch({ type: reducerCases.SET_PAGE, payload: 1 })
+        dispatch({ type: reducerCases.RESET_ANIME_LIST })
         dispatch({ type: reducerCases.RESET_RECOMMEND })
     }
 
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar sx={{ justifyContent: 'space-between' }}>
-                <Typography color="primary" variant="h4" component="h1"
+                <Typography color="textPrimary" variant="h4" component="h1"
                     fontFamily='Pixelify Sans' onClick={handleHome}
                     sx={{ ":hover": { cursor: 'pointer' } }}>
                     Anime
