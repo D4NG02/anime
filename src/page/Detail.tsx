@@ -1,7 +1,6 @@
 import { ScrollRestoration } from "react-router";
 import { Box, Container } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
-import Header from "../containers/Header";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
 import Recommend from '../containers/Recommend';

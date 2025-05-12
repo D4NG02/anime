@@ -3,20 +3,20 @@ import { reducerCases } from "./Constant"
 
 export interface stateType {
     search: string,
-    searchAnime: animeType[],
     detail: animeType,
-    pagination: { items: { count: number } },
-    itemPerPage: number,
-    page: number,
     recommend: any[],
     historyID: any[],
+    searchAnime: {
+        data: animeType[],
+        pagination: { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
+    },
     schedules: {
         data: animeType[],
-        pagination: { current_page: number, has_next_page: boolean, items: { count: number } }
+        pagination: { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
     },
     topPopular: {
         data: animeType[],
-        pagination: { current_page: number, has_next_page: boolean, items: { count: number } }
+        pagination: { current_page: number, has_next_page: boolean, items: { count: number, per_page: number } }
     },
     topFavourite: animeType[],
     topAiring: animeType[],
@@ -58,20 +58,20 @@ const defaultState: { detail: animeType } = {
 }
 export const state: stateType = {
     search: '',
-    page: 1,
-    itemPerPage: 15,
     detail: defaultState.detail,
-    pagination: { items: { count: 1 } },
-    searchAnime: [],
     recommend: [],
     historyID: [],
+    searchAnime: {
+        data: [],
+        pagination: { current_page: 1, has_next_page: true, items: { count: 1, per_page: 10 } }
+    },
     schedules: {
         data: [],
-        pagination: { current_page: 1, has_next_page: true, items: { count: 1 } }
+        pagination: { current_page: 1, has_next_page: true, items: { count: 1, per_page: 10 } }
     },
     topPopular: {
         data: [],
-        pagination: { current_page: 1, has_next_page: true, items: { count: 1 } }
+        pagination: { current_page: 1, has_next_page: true, items: { count: 1, per_page: 10 } }
     },
     topFavourite: [],
     topAiring: [],
@@ -83,10 +83,7 @@ const reducer = (state: stateType, action: actionType) => {
             return { ...state, search: action.payload }
 
         case reducerCases.SET_ANIME_LIST:
-            return { ...state, searchAnime: action.payload.data, pagination: action.payload.pagination }
-
-        case reducerCases.SET_PAGE:
-            return { ...state, page: action.payload }
+            return { ...state, searchAnime: action.payload }
 
         case reducerCases.SET_DETAIL:
             return { ...state, detail: action.payload }

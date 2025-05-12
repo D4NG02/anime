@@ -17,7 +17,7 @@ export default function TopPopular() {
             state.topPopular.data.length === 0 && ApiGetTopAnime(limit, 1, 'bypopularity', (data) => {
                 dispatch({ type: reducerCases.SET_TOP_POPULOR, payload: data })
             })
-        }, 2000);
+        }, 1000);
         return () => clearTimeout(timeoutId);
     }, [])
 

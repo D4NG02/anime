@@ -1,6 +1,6 @@
 import {
     Box, Button, ButtonGroup, Divider,
-    Stack, Typography, useMediaQuery, useTheme
+    Typography, useMediaQuery, useTheme
 } from "@mui/material";
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
@@ -87,6 +87,6 @@ export default function PresenterTopPopular() {
                     )
                 })}
             </Box>
-        </Box >
+        </Box>
     );
 }

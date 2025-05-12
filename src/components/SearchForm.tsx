@@ -19,10 +19,9 @@ export default function SearchForm() {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             pathname !== '/search' && state.search !== find && navigate('/search');
-            state.search !== find && dispatch({ type: reducerCases.SET_PAGE, payload: 1 })
             dispatch({ type: reducerCases.SET_SEARCH, payload: find })
 
-            pathname === '/search' && ApiGetAnime(find, state.search, state.page, state.itemPerPage, (data) => {
+            ApiGetAnime(find, state.search, 1, 15, (data) => {
                 dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
             })
         }, 250);

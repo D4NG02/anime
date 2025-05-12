@@ -11,7 +11,6 @@ export default function Header() {
     const handleHome = () => {
         navigate('/');
         dispatch({ type: reducerCases.SET_SEARCH, payload: "" })
-        dispatch({ type: reducerCases.SET_PAGE, payload: 1 })
         dispatch({ type: reducerCases.RESET_ANIME_LIST })
         dispatch({ type: reducerCases.RESET_RECOMMEND })
     }

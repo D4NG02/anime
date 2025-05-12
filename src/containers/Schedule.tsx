@@ -22,7 +22,7 @@ export default function Schedule() {
             state.schedules.data.length === 0 && ApiGetSchedules(filterDay, (data) => {
                 dispatch({ type: reducerCases.SET_SCHEDULE, payload: data })
             })
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(timeoutId);
     }, [])
 
