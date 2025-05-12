@@ -58,10 +58,13 @@ export default function PresenterTopPopular() {
                     })}
                 </Divider>
                 <ButtonGroup color='primary' variant='contained' size='small'
-                    sx={{
+                    sx={(theme) => ({
                         '& .MuiButtonGroup-grouped': { minWidth: 'unset' },
-                        '& .MuiButton-root': { padding: 0.5 }
-                    }}>
+                        '& .MuiButton-root': {
+                            padding: 0.5,
+                            '&.Mui-disabled': { bgcolor: theme.palette.secondary.light },
+                        },
+                    })}>
                     <Button onClick={handlePrev}
                         disabled={state.topPopular.pagination.current_page === 1 ? true : false}>
                         <NavigateBeforeIcon /></Button>

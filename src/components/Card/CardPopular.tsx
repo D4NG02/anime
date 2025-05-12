@@ -25,7 +25,7 @@ export default function CardPopular({ data }: { data: animeType }) {
                 bgcolor: 'transparent', boxShadow: 'unset',
                 padding: 'unset', border: 'unset', borderRadius: 'unset',
                 display: { xs: 'block', sm: 'grid' }, alignItems: 'center',
-                gridTemplateColumns: 'max-content auto'
+                gridTemplateColumns: 'max-content auto', height: {xs: 210, sm: 250, md: 300},
             }}>
             <CardHeader title={data.title} subheader={String(data.popularity).padStart(2, '0')}
                 slotProps={{
@@ -48,8 +48,6 @@ export default function CardPopular({ data }: { data: animeType }) {
                         overflow: 'hidden',
                         textOrientation: 'upright',
                         writingMode: 'sideways-lr',
-                        maxHeight: 'calc(240px - 24px)',
-                        textAlign: 'left'
                     },
             '& .MuiTypography-body1': {
                 textAlign: 'center',
