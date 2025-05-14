@@ -98,6 +98,11 @@ export const state: stateType = {
 
 const reducer = (state: stateType, action: actionType) => {
     switch (action.type) {
+        case reducerCases.SET_FIRST_LOAD_HOME:
+            return { ...state, ...action.payload }
+
+
+
         case reducerCases.SET_SEARCH:
             return { ...state, search: action.payload }
 
@@ -124,6 +129,8 @@ const reducer = (state: stateType, action: actionType) => {
 
         case reducerCases.SET_TOP_AIRING:
             return { ...state, topAiring: action.payload }
+
+
 
         case reducerCases.RESET_ANIME_LIST:
             return { ...state, searchAnime: { data: [], pagination: defaultPagination } }
