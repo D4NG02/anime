@@ -41,6 +41,6 @@ export default function PresenterSchedule({ todayDay }: { todayDay: string }) {
                     )
                 })}
             </Box>
-        </Box >
+        </Box>
     );
 }

@@ -1,4 +1,4 @@
-interface errorType {
+export interface ErrorJikanApiType {
     data: any,
     status: any,
     header: any,
@@ -8,7 +8,7 @@ interface errorType {
     config: any,
 }
 
-export const ErrorJikanApi = (error: errorType) => {
+export const ErrorJikanApi = (error: ErrorJikanApiType) => {
     if (!error.response) {
         error.message === 'Network Error' && console.log('[' + error.message + '] Not connect to the internet')
         error.message !== 'Network Error' && console.log('[' + error.message + ']')
