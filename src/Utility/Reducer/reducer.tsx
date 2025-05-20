@@ -64,7 +64,7 @@ const defaultState: { detail: animeType } = {
     }
 }
 
-const defaultPagination: paginationType = {
+export const defaultPagination: paginationType = {
     current_page: 1, has_next_page: true,
     items: { count: 1, per_page: 10 }
 }
@@ -98,6 +98,11 @@ export const state: stateType = {
 
 const reducer = (state: stateType, action: actionType) => {
     switch (action.type) {
+        case reducerCases.SET_FIRST_LOAD_HOME:
+            return { ...state, ...action.payload }
+
+
+
         case reducerCases.SET_SEARCH:
             return { ...state, search: action.payload }
 
@@ -124,6 +129,8 @@ const reducer = (state: stateType, action: actionType) => {
 
         case reducerCases.SET_TOP_AIRING:
             return { ...state, topAiring: action.payload }
+
+
 
         case reducerCases.RESET_ANIME_LIST:
             return { ...state, searchAnime: { data: [], pagination: defaultPagination } }

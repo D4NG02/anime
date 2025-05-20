@@ -25,7 +25,7 @@ export default function CardPopular({ data }: { data: animeType }) {
                 bgcolor: 'transparent', boxShadow: 'unset',
                 padding: 'unset', border: 'unset', borderRadius: 'unset',
                 display: { xs: 'block', sm: 'grid' }, alignItems: 'center',
-                gridTemplateColumns: 'max-content auto', height: {xs: 210, sm: 250, md: 300},
+                gridTemplateColumns: 'max-content auto', height: { xs: 210, sm: 250, md: 300 },
             }}>
             <CardHeader title={data.title} subheader={String(data.popularity).padStart(2, '0')}
                 slotProps={{
@@ -49,12 +49,12 @@ export default function CardPopular({ data }: { data: animeType }) {
                         textOrientation: 'upright',
                         writingMode: 'sideways-lr',
                     },
-            '& .MuiTypography-body1': {
-                textAlign: 'center',
-            paddingBlock: {xs: 0.8, sm: 'unset' },
-            paddingInline: {xs: 1.2, sm: 'unset' },
-            color: theme.palette.text.primary,
-            bgcolor: {xs: theme.palette.secondary.main, sm: 'transparent' }
+                    '& .MuiTypography-body1': {
+                        textAlign: 'center',
+                        paddingBlock: { xs: 0.8, sm: 'unset' },
+                        paddingInline: { xs: 1.2, sm: 'unset' },
+                        color: theme.palette.text.primary,
+                        bgcolor: { xs: theme.palette.secondary.main, sm: 'transparent' }
                     }
                 })} />
             <CardMedia component="img" image={data.images.webp.image_url} alt={data.title}

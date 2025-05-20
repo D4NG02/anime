@@ -54,7 +54,7 @@ export default function PresenterTopAiring() {
                 '& .swiper-pagination': {
                     width: 'max-content', height: '100%',
                     gap: 1, display: { xs: 'flex', md: 'none' },
-                    flexDirection: 'column', justifyContent: 'center',
+                    flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-end',
                     top: 0, bottom: 'unset', left: 'unset', right: { xs: 10, sm: 20 },
                     '& .swiper-pagination-bullet': {
                         height: 16, width: 4, borderRadius: 2,
