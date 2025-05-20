@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Container, useMediaQuery, useTheme } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
+import { ErrorJikanApi } from "../Utility/Api/ApiErrorHandle";
+import { defaultPagination } from "../Utility/Reducer/reducer";
 import TopAiring from "../containers/TopAiring";
 import TopPopular from "../containers/TopPopular";
 import Schedule from "../containers/Schedule";
@@ -39,7 +41,10 @@ export default function Home() {
                 }
                 const data = await response.json();
                 results.push(data);
-            } catch (error) { }
+            } catch (error: any) {
+                results.push({ data: [], pagination: defaultPagination });
+                ErrorJikanApi(error)
+            }
         }
 
 
@@ -55,7 +60,10 @@ export default function Home() {
                 }
                 const data = await response.json();
                 results.push(data);
-            } catch (error) { }
+            } catch (error: any) {
+                results.push({ data: [], pagination: defaultPagination });
+                ErrorJikanApi(error)
+            }
         }
 
 
@@ -68,7 +76,7 @@ export default function Home() {
     return (
         <Container sx={{
             marginBottom: 4,
-            gap: { xs: 3, md: 5, lg: 8 },
+            gap: { xs: 4, md: 5, lg: 8 },
             marginTop: { xs: 7, sm: 8 },
             paddingInline: { xs: 'unset', md: 2 },
             display: 'flex', flexDirection: 'column',

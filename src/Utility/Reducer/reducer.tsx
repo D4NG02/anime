@@ -64,7 +64,7 @@ const defaultState: { detail: animeType } = {
     }
 }
 
-const defaultPagination: paginationType = {
+export const defaultPagination: paginationType = {
     current_page: 1, has_next_page: true,
     items: { count: 1, per_page: 10 }
 }
