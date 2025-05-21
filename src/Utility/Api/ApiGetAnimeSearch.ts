@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ErrorJikanApi } from "./ApiErrorHandle";
 
-export const ApiGetAnime = (search: string, stateSearch: string, page: number, limit: number, setData: (data: any) => void) => {
+export const ApiGetAnimeSearch = (search: string, stateSearch: string, page: number, limit: number, setData: (data: any) => void) => {
     axios(`https://api.jikan.moe/v4/anime`,
         {
             params: {

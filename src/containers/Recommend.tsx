@@ -1,21 +1,14 @@
-import { useEffect } from "react";
-import { reducerCases } from "../Utility/Reducer/Constant";
+import { lazy, Suspense } from "react";
+import { Box } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
-import { ApiGetRecommendById } from "../Utility/Api/ApiGetRecommendById";
-import PresenterRecommend from "../presenter/PresenterRecommend";
+const PresenterRecommend = lazy(() => import('../presenter/PresenterRecommend'));
 
 export default function Recommend() {
-    const { state, dispatch } = useStateProvider()
-
-    useEffect(() => {
-        ApiGetRecommendById(state.detail.mal_id, (data) => {
-            dispatch({ type: reducerCases.SET_RECOMMEND, payload: data })
-        })
-    }, [])
+    const { state } = useStateProvider()
 
     return (
-        <>
+        <Suspense fallback={<Box></Box>}>
             {state.recommend && state.recommend.length > 0 && <PresenterRecommend />}
-        </>
+        </Suspense>
     );
 }

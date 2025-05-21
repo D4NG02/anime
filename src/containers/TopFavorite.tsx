@@ -1,21 +1,14 @@
-import { useEffect } from "react";
+import { lazy, Suspense } from "react";
+import { Box } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
-import { ApiGetTopAnime } from "../Utility/Api/ApiGetTopAnime";
-import { reducerCases } from "../Utility/Reducer/Constant";
-import PresenterTopFavorite from "../presenter/PresenterTopFavorite";
+const PresenterTopFavorite = lazy(() => import('../presenter/PresenterTopFavorite'));
 
 export default function TopFavorite() {
-    const { state, dispatch } = useStateProvider()
-
-    useEffect(() => {
-        state.topFavourite.data.length === 0 && ApiGetTopAnime(12, 1, "favorite", (data) => {
-            dispatch({ type: reducerCases.SET_TOP_FAVOURITE, payload: data })
-        })
-    }, [])
+    const { state } = useStateProvider()
 
     return (
-        <>
+        <Suspense fallback={<Box></Box>}>
             {state.topFavourite.data.length > 0 && <PresenterTopFavorite />}
-        </>
+        </Suspense>
     );
 }

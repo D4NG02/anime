@@ -2,8 +2,8 @@ import { useNavigate } from "react-router";
 import { Button, Card, CardActions, CardHeader, CardMedia } from "@mui/material";
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
-import { ApiGetAnimeById } from "../../Utility/Api/ApiGetAnimeById";
-import { ApiGetRecommendById } from "../../Utility/Api/ApiGetRecommendById";
+import { defaultState } from "../../Utility/Reducer/reducer";
+import { ErrorJikanApi } from "../../Utility/Api/ApiErrorHandle";
 
 interface props {
     entry: {
@@ -18,20 +18,39 @@ export default function CardRecommend({ entry }: props) {
     let navigate = useNavigate();
     const { state, dispatch } = useStateProvider()
 
-    const handleLearnMore = () => {
+    const handleLearnMore = async () => {
         navigate('/detail' + entry.url.split(String(entry.mal_id))[1], { preventScrollReset: false });
 
-        dispatch({
-            type: reducerCases.SET_HISTORY_ID,
-            payload: state.historyID.length > 0 ?
-                [...state.historyID, state.detail.mal_id] : [state.detail.mal_id]
-        })
+        const apiEndpoint = [
+            `https://api.jikan.moe/v4/anime/${entry.mal_id}`,
+            `https://api.jikan.moe/v4/anime/${entry.mal_id}/recommendations`
+        ]
 
-        ApiGetAnimeById(entry.mal_id, (data) => {
-            dispatch({ type: reducerCases.SET_DETAIL, payload: data })
-        })
-        ApiGetRecommendById(entry.mal_id, (data) => {
-            dispatch({ type: reducerCases.SET_RECOMMEND, payload: data })
+        const results: any[] = [];
+        const defaultDetail = defaultState.detail
+        for (const filter of apiEndpoint) {
+            try {
+                const response = await fetch(filter)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                results.push(data.data)
+            } catch (error: any) {
+                filter.includes('recommendations') ? results.push({ data: [] })
+                    : results.push({ defaultDetail })
+                ErrorJikanApi(error)
+            }
+        }
+
+        dispatch({
+            type: reducerCases.SET_DETAIL_PAGE,
+            payload: {
+                detail: results[0],
+                recommend: results[1],
+                historyID: state.historyID.length > 0 ?
+                    [...state.historyID, state.detail.mal_id] : [state.detail.mal_id]
+            }
         })
     }
 
@@ -52,7 +71,7 @@ export default function CardRecommend({ entry }: props) {
                             WebkitLineClamp: '1',
                             WebkitBoxOrient: 'vertical',
                             overflow: 'hidden',
-                            display: '-webkit-box' 
+                            display: '-webkit-box'
                         }
                     }} />
                 <CardActions sx={{ paddingInline: 1, paddingTop: 0 }}>
