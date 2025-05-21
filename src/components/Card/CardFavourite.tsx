@@ -17,13 +17,16 @@ export default function CardFavourite({ data }: props) {
     const { state, dispatch } = useStateProvider()
 
     const handleLearnMore = () => {
-        dispatch({
-            type: reducerCases.SET_HISTORY_ID,
-            payload: state.historyID.length > 0 ?
-                [...state.historyID, state.detail.mal_id] : [state.detail.mal_id]
-        })
-        dispatch({ type: reducerCases.SET_DETAIL, payload: data })
         navigate('/detail' + data.url.split(String(data.mal_id))[1]);
+
+        dispatch({
+            type: reducerCases.SET_DETAIL_PAGE,
+            payload: {
+                detail: data,
+                historyID: state.historyID.length > 0 ?
+                    [...state.historyID, state.detail.mal_id] : [state.detail.mal_id]
+            }
+        })
     }
 
     return (
