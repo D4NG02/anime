@@ -2,13 +2,13 @@ import { ChangeEvent } from "react";
 import { Box, Pagination } from "@mui/material";
 import { useStateProvider } from "../../Utility/Reducer/StateProvider";
 import { reducerCases } from "../../Utility/Reducer/Constant";
-import { ApiGetAnime } from "../../Utility/Api/ApiGetAnime";
+import { ApiGetAnimeSearch } from "../../Utility/Api/ApiGetAnimeSearch";
 
 export default function PaginationSearch() {
     const { state, dispatch } = useStateProvider()
 
     const handleChangePage = async (_: ChangeEvent<unknown>, value: number) => {
-        ApiGetAnime(state.search, state.search, value, 15, (data) => {
+        ApiGetAnimeSearch(state.search, state.search, value, 15, (data) => {
             dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
         })
     };

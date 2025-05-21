@@ -3,16 +3,23 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import SearchForm from "../components/SearchForm";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
+import { defaultPagination } from "../Utility/Reducer/reducer";
 
 export default function Header() {
     let navigate = useNavigate();
     const { dispatch } = useStateProvider()
 
     const handleHome = () => {
+        dispatch({
+            type: reducerCases.RESET_ALL,
+            payload: {
+                search: "",
+                recommend: [],
+                searchAnime: { data: [], pagination: defaultPagination },
+                topFavourite: { data: [], pagination: defaultPagination }
+            }
+        })
         navigate('/');
-        dispatch({ type: reducerCases.SET_SEARCH, payload: "" })
-        dispatch({ type: reducerCases.RESET_ANIME_LIST })
-        dispatch({ type: reducerCases.RESET_RECOMMEND })
     }
 
     return (

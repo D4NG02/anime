@@ -1,13 +1,52 @@
+import { useEffect } from "react";
 import { ScrollRestoration } from "react-router";
 import { Box, Container } from "@mui/material";
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
+import { ErrorJikanApi } from "../Utility/Api/ApiErrorHandle";
+import { reducerCases } from "../Utility/Reducer/Constant";
+import { defaultPagination } from "../Utility/Reducer/reducer";
 import AnimeInfo from "../components/AnimeInfo";
 import AnimeDetail from "../components/AnimeDetail";
 import Recommend from '../containers/Recommend';
 import TopFavorite from "../containers/TopFavorite";
 
 export default function Detail() {
-    const { state } = useStateProvider()
+    const { state, dispatch } = useStateProvider()
+
+
+    useEffect(() => {
+        SetDetailData()
+    }, [])
+
+    const SetDetailData = async () => {
+        const apiEndpoint = [
+            `https://api.jikan.moe/v4/anime/${state.detail.mal_id}/recommendations`,
+            `https://api.jikan.moe/v4/top/anime?filter=favorite&page=1&limit=12&sfw=true`
+        ]
+
+        const results: any[] = [];
+        for (const filter of apiEndpoint) {
+            try {
+                const response = await fetch(filter)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                filter.includes('recommendations') ? results.push(data.data)
+                    : results.push(data)
+            } catch (error: any) {
+                filter.includes('recommendations') ? results.push({ data: [] })
+                    : results.push({ data: [], pagination: defaultPagination })
+                ErrorJikanApi(error)
+            }
+        }
+
+        dispatch({
+            type: reducerCases.SET_DETAIL_PAGE,
+            payload: { recommend: results[0], topFavourite: results[1] }
+        })
+    }
 
     return (
         <Container maxWidth='lg' sx={{
