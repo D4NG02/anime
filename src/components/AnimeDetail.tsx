@@ -3,8 +3,8 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
-import { ApiGetAnimeById } from "../Utility/Api/ApiGetAnimeById";
-import { ApiGetRecommendById } from "../Utility/Api/ApiGetRecommendById";
+import { defaultPagination, defaultState } from "../Utility/Reducer/reducer";
+import { ErrorJikanApi } from "../Utility/Api/ApiErrorHandle";
 import ChipRating from "./Chip/ChipRating";
 import ChipType from "./Chip/ChipType";
 import ChipEpisode from "./Chip/ChipEpisode";
@@ -17,17 +17,50 @@ export default function AnimeDetail() {
         const historyID = state.historyID.pop()
         navigate(-1);
         if (historyID) {
-            dispatch({ type: reducerCases.SET_HISTORY_ID, payload: state.historyID })
-            ApiGetAnimeById(historyID, (data)=>{
-                dispatch({ type: reducerCases.SET_DETAIL, payload: data })
-            })
-            ApiGetRecommendById(historyID, (data)=>{
-                dispatch({ type: reducerCases.SET_RECOMMEND, payload: data })
-            })
+            SetDetailData(historyID)
         } else {
-            dispatch({ type: reducerCases.RESET_DETAIL })
-            dispatch({ type: reducerCases.RESET_RECOMMEND })
+            dispatch({
+                type: reducerCases.RESET_ALL,
+                payload: {
+                    detail: defaultState.detail,
+                    recommend: [],
+                    topFavourite: { data: [], pagination: defaultPagination }
+                }
+            })
         }
+    }
+
+    const SetDetailData = async (id: number) => {
+        const apiEndpoint = [
+            `https://api.jikan.moe/v4/anime/${id}`,
+            `https://api.jikan.moe/v4/anime/${id}/recommendations`
+        ]
+
+        const results: any[] = [];
+        const defaultDetail = defaultState.detail
+        for (const filter of apiEndpoint) {
+            try {
+                const response = await fetch(filter)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                results.push(data.data)
+            } catch (error: any) {
+                filter.includes('recommendations') ? results.push({ data: [] })
+                    : results.push({ defaultDetail })
+                ErrorJikanApi(error)
+            }
+        }
+
+        dispatch({
+            type: reducerCases.SET_DETAIL_PAGE,
+            payload: {
+                detail: results[0],
+                recommend: results[1],
+                historyID: state.historyID
+            }
+        })
     }
 
     return (

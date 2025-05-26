@@ -4,7 +4,7 @@ import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useStateProvider } from "../Utility/Reducer/StateProvider";
 import { reducerCases } from "../Utility/Reducer/Constant";
-import { ApiGetAnime } from "../Utility/Api/ApiGetAnime";
+import { ApiGetAnimeSearch } from "../Utility/Api/ApiGetAnimeSearch";
 
 export default function SearchForm() {
     let { pathname } = useLocation()
@@ -18,7 +18,7 @@ export default function SearchForm() {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            pathname !== '/search' && state.search !== find && ApiGetAnime(find, state.search, 1, 15, (data) => {
+            pathname !== '/search' && state.search !== find && ApiGetAnimeSearch(find, state.search, 1, 15, (data) => {
                 dispatch({ type: reducerCases.SET_ANIME_LIST, payload: data })
             })
             dispatch({ type: reducerCases.SET_SEARCH, payload: find })

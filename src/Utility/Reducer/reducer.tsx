@@ -30,7 +30,7 @@ export interface stateType {
 }
 export interface actionType { type: string, payload: any }
 
-const defaultState: { detail: animeType } = {
+export const defaultState: { detail: animeType } = {
     detail: {
         mal_id: 0,
         url: '',
@@ -101,6 +101,9 @@ const reducer = (state: stateType, action: actionType) => {
         case reducerCases.SET_FIRST_LOAD_HOME:
             return { ...state, ...action.payload }
 
+        case reducerCases.SET_DETAIL_PAGE:
+            return { ...state, ...action.payload }
+
 
 
         case reducerCases.SET_SEARCH:
@@ -114,9 +117,6 @@ const reducer = (state: stateType, action: actionType) => {
 
         case reducerCases.SET_RECOMMEND:
             return { ...state, recommend: action.payload.data }
-
-        case reducerCases.SET_HISTORY_ID:
-            return { ...state, historyID: action.payload }
 
         case reducerCases.SET_SCHEDULE:
             return { ...state, schedules: action.payload }
@@ -132,14 +132,8 @@ const reducer = (state: stateType, action: actionType) => {
 
 
 
-        case reducerCases.RESET_ANIME_LIST:
-            return { ...state, searchAnime: { data: [], pagination: defaultPagination } }
-
-        case reducerCases.RESET_DETAIL:
-            return { ...state, detail: defaultState.detail }
-
-        case reducerCases.RESET_RECOMMEND:
-            return { ...state, recommend: [] }
+        case reducerCases.RESET_ALL:
+            return { ...state, ...action.payload }
 
         default:
             console.log("Error reducerCases type")
